@@ -3,7 +3,9 @@ package com.example.University.Management.System.repository;
 import com.example.University.Management.System.model.Student;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class StudentRepository {
 
     private List<Student> students = new ArrayList<>();
