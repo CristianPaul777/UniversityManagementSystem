@@ -13,6 +13,9 @@ public class Course extends BaseEntity {
     private List<Enrollment> enrollments;
     private List<TeachingAssignment> assignments;
 
+    public Course() {
+    }
+
     public Course(String id, String title, int credits, String semester, String departmentId, String roomId) {
         this.id = id;
         this.title = title;

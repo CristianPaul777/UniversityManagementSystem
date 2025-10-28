@@ -10,6 +10,11 @@ public class Department extends BaseEntity {
     private List<Course> courses;
     private List<Staff> teachers;
 
+    public Department() {
+        this.teachers = new ArrayList<>();
+        this.courses = new ArrayList<>();
+    }
+
     public Department(String id, String name, String faculty) {
         this.id = id;
         this.name = name;

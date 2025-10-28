@@ -11,6 +11,10 @@ public class University extends BaseEntity {
     private List<Department> departments;
     private List<Room> rooms;
 
+    public University() {
+        this.departments = new ArrayList<>();
+    }
+
     public University(String id, String name, String city, String country) {
         this.id = id;
         this.name = name;
