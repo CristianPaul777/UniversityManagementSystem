@@ -9,6 +9,9 @@ public class Student {
     private String email;
     private List<Enrollment> enrollments;
 
+    public Student() {
+    }
+
     public Student(String id, String name, String email) {
         this.id = id;
         this.name = name;
