@@ -10,6 +10,9 @@ public class Room extends BaseEntity {
     private String building;
     private List<Course> courses;
 
+    public Room() {
+    }
+
     public Room(String id, double capacity, String number, String building) {
         this.id = id;
         this.capacity = capacity;

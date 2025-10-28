@@ -6,6 +6,9 @@ public class TeachingAssignment extends BaseEntity {
     private String staffId;
     private String managing;
 
+    public TeachingAssignment() {
+    }
+
     public TeachingAssignment(String id, String courseId, String staffId, String managing) {
         this.id = id;
         this.courseId = courseId;
