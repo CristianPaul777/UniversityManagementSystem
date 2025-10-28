@@ -1,9 +1,10 @@
 package com.example.University.Management.System.model;
+import com.example.University.Management.System.model.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student {
+public class Student extends BaseEntity {
     private String id;
     private String name;
     private String email;
@@ -19,7 +20,11 @@ public class Student {
         this.enrollments = new ArrayList<>();
     }
 
-    public String getId() { return id; }
+    @Override
+    public String getId() {
+        return id;
+    }
+
     public void setId(String id) { this.id = id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

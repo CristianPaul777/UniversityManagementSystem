@@ -3,7 +3,7 @@ package com.example.University.Management.System.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room {
+public class Room extends BaseEntity {
     private String id;
     private double capacity;
     private String number;
@@ -18,7 +18,11 @@ public class Room {
         this.courses = new ArrayList<>();
     }
 
-    public String getId() { return id; }
+    @Override
+    public String getId() {
+        return id;
+    }
+
     public void setId(String id) { this.id = id; }
     public double getCapacity() { return capacity; }
     public void setCapacity(double capacity) { this.capacity = capacity; }

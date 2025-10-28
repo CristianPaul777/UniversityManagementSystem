@@ -1,6 +1,6 @@
 package com.example.University.Management.System.model;
 
-public class Enrollment {
+public class Enrollment extends BaseEntity {
     private String id;
     private Student student;
     private Course course;
@@ -15,7 +15,11 @@ public class Enrollment {
 
     public Enrollment() {}
 
-    public String getId() { return id; }
+    @Override
+    public String getId() {
+        return id;
+    }
+
     public void setId(String id) { this.id = id; }
 
     public Student getStudent() { return student; }

@@ -1,7 +1,7 @@
 package com.example.University.Management.System.service;
 
 import com.example.University.Management.System.model.Student;
-import com.example.University.Management.System.repository.StudentRepository;
+import com.example.University.Management.System.repository.CRUDrepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -9,9 +9,9 @@ import java.util.List;
 
 public class StudentService {
 
-    private final StudentRepository studentRepository;
+    private final CRUDrepository<Student> studentRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(CRUDrepository<Student> studentRepository) {
         this.studentRepository = studentRepository;
     }
 
