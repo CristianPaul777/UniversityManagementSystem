@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/assignments")
+@RequestMapping("/teachingassignments")
 public class TeachingAssignmentController {
 
     private final TeachingAssignmentService service;
@@ -18,25 +18,25 @@ public class TeachingAssignmentController {
 
     @GetMapping
     public String getAll(Model model) {
-        model.addAttribute("assignments", service.getAllTeachingAssignments());
-        return "assignment/index";
+        model.addAttribute("teachingassignments", service.getAllTeachingAssignments());
+        return "teachingassignments/index";
     }
 
     @GetMapping("/new")
     public String showForm(Model model) {
-        model.addAttribute("assignment", new TeachingAssignment());
-        return "assignment/form";
+        model.addAttribute("teachingAssignment", new TeachingAssignment());
+        return "teachingassignments/form";
     }
 
     @PostMapping
-    public String addAssignment(@ModelAttribute TeachingAssignment assignment) {
-        service.addTeachingAssignment(assignment);
-        return "redirect:/assignments";
+    public String addTeachingAssignment(@ModelAttribute TeachingAssignment teachingAssignment) {
+        service.addTeachingAssignment(teachingAssignment);
+        return "redirect:/teachingassignments";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteAssignment(@PathVariable String id) {
+    public String deleteTeachingAssignment(@PathVariable String id) {
         service.deleteTeachingAssignment(id);
-        return "redirect:/assignments";
+        return "redirect:/teachingassignments";
     }
 }
