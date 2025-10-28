@@ -1,13 +1,28 @@
 package com.example.University.Management.System.model;
 
 public class Assistant extends Staff {
-    private String role;
+    private AssistantRole role;
 
-    public Assistant(String id, String name, String phoneNumber, String role) {
+    public Assistant() {
+        super();
+        this.role = AssistantRole.LAB;
+    }
+
+    public Assistant(String id, String name, String phoneNumber, AssistantRole role) {
         super(id, name, phoneNumber);
         this.role = role;
     }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public AssistantRole getRole() { return role; }
+    public void setRole(AssistantRole role) { this.role = role; }
+
+    @Override
+    public String toString() {
+        return "Assistant{" +
+                "id='" + getId() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

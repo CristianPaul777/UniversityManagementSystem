@@ -9,6 +9,10 @@ public abstract class Staff {
     private String phoneNumber;
     private List<TeachingAssignment> assignments;
 
+    protected Staff() {
+        this.assignments = new ArrayList<>();
+    }
+
     public Staff(String id, String name, String phoneNumber) {
         this.id = id;
         this.name = name;
