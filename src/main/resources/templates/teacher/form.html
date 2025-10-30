@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Teacher</title>
+</head>
+<body>
+<h1>Add New Teacher</h1>
+
+<form th:action="@{/teachers}" method="post" th:object="${teacher}">
+    <label>ID:</label>
+    <input type="text" th:field="*{id}" /><br/>
+
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" /><br/>
+
+    <label>Phone Number:</label>
+    <input type="text" th:field="*{phoneNumber}" /><br/>
+
+    <label>Department ID:</label>
+    <input type="text" th:field="*{departmentId}" /><br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<a href="/teachers">Back to List</a>
+</body>
+</html>
