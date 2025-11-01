@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Enrollment</title>
+</head>
+<body>
+
+<h1>Add New Enrollment</h1>
+
+<form th:action="@{/enrollments}" th:object="${enrollment}" method="post">
+
+    <label>ID:</label><br>
+    <input type="text" th:field="*{id}" /><br><br>
+
+    <label>Student ID:</label><br>
+    <input type="text" th:field="*{student.id}" /><br><br>
+
+    <label>Course ID:</label><br>
+    <input type="text" th:field="*{course.id}" /><br><br>
+
+    <label>Grade:</label><br>
+    <input type="text" th:field="*{grade}" /><br><br>
+
+    <button type="submit">Save</button>
+</form>
+
+<br>
+<a th:href="@{/enrollments}">Back to list</a>
+
+</body>
+</html>

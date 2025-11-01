@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enrollment List</title>
+</head>
+<body>
+<h1>All Enrollments</h1>
+
+<a th:href="@{/enrollments/new}">Add New Enrollment</a>
+
+<table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Student ID</th>
+        <th>Course ID</th>
+        <th>Grade</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="en : ${enrollments}">
+        <td th:text="${en.id}"></td>
+        <td th:text="${en.student.id}"></td>
+        <td th:text="${en.course.id}"></td>
+        <td th:text="${en.grade}"></td>
+        <td>
+            <form th:action="@{'/enrollments/' + ${en.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
