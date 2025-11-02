@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assistant List</title>
+</head>
+<body>
+<h1>All Assistants</h1>
+
+<a th:href="@{/assistants/new}">Add New Assistant</a>
+
+<table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="assistant : ${assistants}">
+        <td th:text="${assistant.id}"></td>
+        <td th:text="${assistant.name}"></td>
+        <td th:text="${assistant.phoneNumber}"></td>
+        <td th:text="${assistant.role}"></td>
+        <td>
+            <form th:action="@{'/assistants/' + ${assistant.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
