@@ -1,0 +1,12 @@
+[
+  {"id": "D1", "name": "Computer Science", "facultyName": "Faculty of Informatics", "building": "Building A"},
+  {"id": "D2", "name": "Electrical Engineering", "facultyName": "Faculty of Engineering", "building": "Building B"},
+  {"id": "D3", "name": "Mathematics", "facultyName": "Faculty of Sciences", "building": "Building C"},
+  {"id": "D4", "name": "Physics", "facultyName": "Faculty of Sciences", "building": "Building D"},
+  {"id": "D5", "name": "Chemistry", "facultyName": "Faculty of Sciences", "building": "Building E"},
+  {"id": "D6", "name": "Mechanical Engineering", "facultyName": "Faculty of Engineering", "building": "Building F"},
+  {"id": "D7", "name": "Economics", "facultyName": "Faculty of Business", "building": "Building G"},
+  {"id": "D8", "name": "Architecture", "facultyName": "Faculty of Architecture", "building": "Building H"},
+  {"id": "D9", "name": "History", "facultyName": "Faculty of Humanities", "building": "Building I"},
+  {"id": "D10", "name": "Psychology", "facultyName": "Faculty of Social Sciences", "building": "Building J"}
+]
