@@ -1,0 +1,12 @@
+[
+  {"id": "R1", "name": "Lab 101", "capacity": 25, "location": "Building A"},
+  {"id": "R2", "name": "Lab 202", "capacity": 30, "location": "Building B"},
+  {"id": "R3", "name": "Lecture Hall 1", "capacity": 80, "location": "Building C"},
+  {"id": "R4", "name": "Lecture Hall 2", "capacity": 100, "location": "Building C"},
+  {"id": "R5", "name": "Seminar Room 305", "capacity": 40, "location": "Building D"},
+  {"id": "R6", "name": "Computer Lab 401", "capacity": 28, "location": "Building E"},
+  {"id": "R7", "name": "Physics Lab", "capacity": 20, "location": "Building F"},
+  {"id": "R8", "name": "Chemistry Lab", "capacity": 18, "location": "Building F"},
+  {"id": "R9", "name": "Multimedia Room", "capacity": 35, "location": "Building G"},
+  {"id": "R10", "name": "Conference Room", "capacity": 50, "location": "Building H"}
+]

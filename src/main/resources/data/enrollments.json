@@ -1,0 +1,12 @@
+[
+  {"id": "E1", "studentId": "S1", "courseId": "C1", "grade": "A"},
+  {"id": "E2", "studentId": "S2", "courseId": "C2", "grade": "B"},
+  {"id": "E3", "studentId": "S3", "courseId": "C3", "grade": "C"},
+  {"id": "E4", "studentId": "S4", "courseId": "C4", "grade": "A"},
+  {"id": "E5", "studentId": "S5", "courseId": "C5", "grade": "B"},
+  {"id": "E6", "studentId": "S6", "courseId": "C6", "grade": "D"},
+  {"id": "E7", "studentId": "S7", "courseId": "C7", "grade": "F"},
+  {"id": "E8", "studentId": "S8", "courseId": "C8", "grade": "A"},
+  {"id": "E9", "studentId": "S9", "courseId": "C9", "grade": "B"},
+  {"id": "E10", "studentId": "S10", "courseId": "C10", "grade": "NA"}
+]
