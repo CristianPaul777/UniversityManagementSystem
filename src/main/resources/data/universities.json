@@ -1,0 +1,12 @@
+[
+  {"id": "U1", "name": "University of Bucharest", "location": "Bucharest"},
+  {"id": "U2", "name": "Babes-Bolyai University", "location": "Cluj-Napoca"},
+  {"id": "U3", "name": "Alexandru Ioan Cuza University", "location": "Iasi"},
+  {"id": "U4", "name": "Politehnica University of Bucharest", "location": "Bucharest"},
+  {"id": "U5", "name": "Transilvania University", "location": "Brasov"},
+  {"id": "U6", "name": "West University", "location": "Timisoara"},
+  {"id": "U7", "name": "Ovidius University", "location": "Constanta"},
+  {"id": "U8", "name": "Lucian Blaga University", "location": "Sibiu"},
+  {"id": "U9", "name": "Dunarea de Jos University", "location": "Galati"},
+  {"id": "U10", "name": "Stefan cel Mare University", "location": "Suceava"}
+]
