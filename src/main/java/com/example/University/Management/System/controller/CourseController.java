@@ -39,4 +39,21 @@ public class CourseController {
         service.deleteCourse(id);
         return "redirect:/courses";
     }
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable String id, Model model) {
+        model.addAttribute("course", service.getCourseById(id));
+        return "course/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        model.addAttribute("course", service.getCourseById(id));
+        return "course/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateCourse(@PathVariable String id, @ModelAttribute Course course) {
+        service.updateCourse(id, course);
+        return "redirect:/courses";
+    }
 }
