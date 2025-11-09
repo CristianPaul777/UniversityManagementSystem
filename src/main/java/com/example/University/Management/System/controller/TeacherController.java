@@ -39,4 +39,21 @@ public class TeacherController {
         service.deleteTeacher(id);
         return "redirect:/teachers";
     }
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable String id, Model model) {
+        model.addAttribute("teacher", service.getTeacherById(id));
+        return "teacher/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        model.addAttribute("teacher", service.getTeacherById(id));
+        return "teacher/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateTeacher(@PathVariable String id, @ModelAttribute Teacher teacher) {
+        service.updateTeacher(id, teacher);
+        return "redirect:/teachers";
+    }
 }
