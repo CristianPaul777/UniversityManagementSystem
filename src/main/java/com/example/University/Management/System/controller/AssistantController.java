@@ -39,4 +39,21 @@ public class AssistantController {
         service.deleteAssistant(id);
         return "redirect:/assistants";
     }
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable String id, Model model) {
+        model.addAttribute("assistant", service.getAssistantById(id));
+        return "assistant/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        model.addAttribute("assistant", service.getAssistantById(id));
+        return "assistant/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateAssistant(@PathVariable String id, @ModelAttribute Assistant assistant) {
+        service.updateAssistant(id, assistant);
+        return "redirect:/assistants";
+    }
 }

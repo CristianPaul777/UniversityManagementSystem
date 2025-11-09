@@ -39,4 +39,21 @@ public class TeachingAssignmentController {
         service.deleteTeachingAssignment(id);
         return "redirect:/teachingassignments";
     }
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable String id, Model model) {
+        model.addAttribute("assignment", service.getTeachingAssignmentById(id));
+        return "teachingassignment/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        model.addAttribute("assignment", service.getTeachingAssignmentById(id));
+        return "teachingassignment/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateAssignment(@PathVariable String id, @ModelAttribute TeachingAssignment assignment) {
+        service.updateTeachingAssignment(id, assignment);
+        return "redirect:/assignments";
+    }
 }

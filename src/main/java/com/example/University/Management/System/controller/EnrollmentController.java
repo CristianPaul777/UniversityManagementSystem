@@ -39,4 +39,22 @@ public class EnrollmentController {
         service.deleteEnrollment(id);
         return "redirect:/enrollments";
     }
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable String id, Model model) {
+        model.addAttribute("enrollment", service.getEnrollmentById(id));
+        return "enrollment/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        model.addAttribute("enrollment", service.getEnrollmentById(id));
+        return "enrollment/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateEnrollment(@PathVariable String id, @ModelAttribute Enrollment enrollment) {
+        service.updateEnrollment(id, enrollment);
+        return "redirect:/enrollments";
+    }
+
 }
