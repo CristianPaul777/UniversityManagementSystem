@@ -19,8 +19,18 @@ public class StudentService {
         return repo.findAll();
     }
 
+    public Student getStudentById(String id) {
+        return repo.findById(id);
+    }
+
     public Student addStudent(Student student) {
         return repo.save(student);
+    }
+
+    public Student updateStudent(String id, Student updatedStudent) {
+
+        updatedStudent.setId(id);
+        return repo.save(updatedStudent);
     }
 
     public void deleteStudent(String id) {
