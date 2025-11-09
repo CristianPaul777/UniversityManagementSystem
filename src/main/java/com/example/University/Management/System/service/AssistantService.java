@@ -19,8 +19,17 @@ public class AssistantService {
         return repo.findAll();
     }
 
+    public Assistant getAssistantById(String id) {
+        return repo.findById(id);
+    }
+
     public Assistant addAssistant(Assistant assistant) {
         return repo.save(assistant);
+    }
+
+    public Assistant updateAssistant(String id, Assistant updatedAssistant) {
+        updatedAssistant.setId(id);
+        return repo.save(updatedAssistant);
     }
 
     public void deleteAssistant(String id) {

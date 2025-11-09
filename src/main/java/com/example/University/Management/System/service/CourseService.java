@@ -19,8 +19,18 @@ public class CourseService {
         return repo.findAll();
     }
 
+    public Course getCourseById(String id) {
+        return repo.findById(id);
+    }
+
     public Course addCourse(Course course) {
         return repo.save(course);
+    }
+
+
+    public Course updateCourse(String id, Course updatedCourse) {
+        updatedCourse.setId(id);
+        return repo.save(updatedCourse);
     }
 
     public void deleteCourse(String id) {

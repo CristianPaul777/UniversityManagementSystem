@@ -19,8 +19,18 @@ public class RoomService {
         return repo.findAll();
     }
 
+    public Room getRoomById(String id) {
+        return repo.findById(id);
+    }
+
     public Room addRoom(Room room) {
         return repo.save(room);
+    }
+
+
+    public Room updateRoom(String id, Room updatedRoom) {
+        updatedRoom.setId(id);
+        return repo.save(updatedRoom);
     }
 
     public void deleteRoom(String id) {

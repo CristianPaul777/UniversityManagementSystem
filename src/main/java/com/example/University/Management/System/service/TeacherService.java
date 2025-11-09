@@ -19,8 +19,18 @@ public class TeacherService {
         return repo.findAll();
     }
 
+    public Teacher getTeacherById(String id) {
+        return repo.findById(id);
+    }
+
     public Teacher addTeacher(Teacher teacher) {
         return repo.save(teacher);
+    }
+
+
+    public Teacher updateTeacher(String id, Teacher updatedTeacher) {
+        updatedTeacher.setId(id);
+        return repo.save(updatedTeacher);
     }
 
     public void deleteTeacher(String id) {

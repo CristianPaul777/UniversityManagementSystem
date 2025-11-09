@@ -19,8 +19,17 @@ public class TeachingAssignmentService {
         return repo.findAll();
     }
 
+    public TeachingAssignment getTeachingAssignmentById(String id) {
+        return repo.findById(id);
+    }
+
     public TeachingAssignment addTeachingAssignment(TeachingAssignment teachingAssignment) {
         return repo.save(teachingAssignment);
+    }
+
+    public TeachingAssignment updateTeachingAssignment(String id, TeachingAssignment updatedAssignment) {
+        updatedAssignment.setId(id);
+        return repo.save(updatedAssignment);
     }
 
     public void deleteTeachingAssignment(String id) {

@@ -19,7 +19,16 @@ public class UniversityService {
         return repo.findAll();
     }
 
+    public University getUniversityById(String id) {
+        return repo.findById(id);
+    }
+
     public University addUniversity(University university) {
+        return repo.save(university);
+    }
+
+    public University updateUniversity(String id, University university) {
+        university.setId(id);
         return repo.save(university);
     }
 
