@@ -4,5 +4,9 @@ import com.example.University.Management.System.model.Assistant;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AssistantRepository extends InMemoryRepository<Assistant> {
+public class AssistantRepository extends InFileRepository<Assistant> {
+
+    public AssistantRepository() {
+        super("assistants.json", Assistant.class);
+    }
 }

@@ -4,5 +4,9 @@ import com.example.University.Management.System.model.University;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UniversityRepository extends InMemoryRepository<University> {
+public class UniversityRepository extends InFileRepository<University> {
+
+    public UniversityRepository() {
+        super("universities.json", University.class);
+    }
 }

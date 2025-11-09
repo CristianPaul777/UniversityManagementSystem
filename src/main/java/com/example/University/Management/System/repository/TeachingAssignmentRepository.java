@@ -4,5 +4,9 @@ import com.example.University.Management.System.model.TeachingAssignment;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TeachingAssignmentRepository extends InMemoryRepository<TeachingAssignment> {
+public class TeachingAssignmentRepository extends InFileRepository<TeachingAssignment> {
+
+    public TeachingAssignmentRepository() {
+        super("teaching_assignments.json", TeachingAssignment.class);
+    }
 }
