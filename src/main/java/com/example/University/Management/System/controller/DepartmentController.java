@@ -39,4 +39,21 @@ public class DepartmentController {
         service.deleteDepartment(id);
         return "redirect:/departments";
     }
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable String id, Model model) {
+        model.addAttribute("department", service.getDepartmentById(id));
+        return "department/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        model.addAttribute("department", service.getDepartmentById(id));
+        return "department/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateDepartment(@PathVariable String id, @ModelAttribute Department department) {
+        service.updateDepartment(id, department);
+        return "redirect:/departments";
+    }
 }
