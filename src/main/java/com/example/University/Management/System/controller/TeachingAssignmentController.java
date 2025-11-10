@@ -48,10 +48,10 @@ public class TeachingAssignmentController {
 
     @PostMapping("/{id}/edit")
     public String update(@PathVariable String id, @ModelAttribute TeachingAssignment assignment) {
-        assignment.setId(id);
-        service.updateTeachingAssignment(assignment);
+        service.updateTeachingAssignment(id, assignment);
         return "redirect:/teachingassignments";
     }
+
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
