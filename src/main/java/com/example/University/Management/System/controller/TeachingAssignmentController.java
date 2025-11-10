@@ -19,7 +19,7 @@ public class TeachingAssignmentController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("assignments", service.getAllTeachingAssignments());
-        return "teachingassignment/index"; // denumirea folderului
+        return "teachingassignment/index";
     }
 
     @GetMapping("/new")
