@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>University Details</title>
+</head>
+<body>
+
+<h1>University Details</h1>
+
+<p><strong>ID:</strong> <span th:text="${university.id}"></span></p>
+<p><strong>Name:</strong> <span th:text="${university.name}"></span></p>
+<p><strong>Location:</strong> <span th:text="${university.location}"></span></p>
+
+<br>
+<a th:href="@{/universities}">Back to List</a>
+
+</body>
+</html>

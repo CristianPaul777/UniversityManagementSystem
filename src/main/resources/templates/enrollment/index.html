@@ -5,6 +5,7 @@
     <title>Enrollment List</title>
 </head>
 <body>
+
 <h1>All Enrollments</h1>
 
 <a th:href="@{/enrollments/new}">Add New Enrollment</a>
@@ -23,11 +24,13 @@
     <tbody>
     <tr th:each="en : ${enrollments}">
         <td th:text="${en.id}"></td>
-        <td th:text="${en.student.id}"></td>
-        <td th:text="${en.course.id}"></td>
+        <td th:text="${en.studentId}"></td>
+        <td th:text="${en.courseId}"></td>
         <td th:text="${en.grade}"></td>
         <td>
-            <form th:action="@{'/enrollments/' + ${en.id} + '/delete'}" method="post">
+            <a th:href="@{'/enrollments/' + ${en.id}}">Details</a>
+            <a th:href="@{'/enrollments/' + ${en.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/enrollments/' + ${en.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>

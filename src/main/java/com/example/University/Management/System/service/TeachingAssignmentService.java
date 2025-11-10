@@ -23,16 +23,16 @@ public class TeachingAssignmentService {
         return repo.findById(id);
     }
 
-    public TeachingAssignment addTeachingAssignment(TeachingAssignment teachingAssignment) {
-        return repo.save(teachingAssignment);
+    public TeachingAssignment addTeachingAssignment(TeachingAssignment assignment) {
+        return repo.save(assignment);
     }
 
-    public TeachingAssignment updateTeachingAssignment(String id, TeachingAssignment updatedAssignment) {
-        updatedAssignment.setId(id);
-        return repo.save(updatedAssignment);
+    public TeachingAssignment updateTeachingAssignment(TeachingAssignment assignment) {
+        return repo.update(assignment);
     }
 
     public void deleteTeachingAssignment(String id) {
         repo.deleteById(id);
     }
 }
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Teaching Assignment</title>
+</head>
+<body>
+
+<h1>Add Teaching Assignment</h1>
+
+<form th:action="@{/templates/teachingassignment}" th:object="${assignment}" method="post">
+
+    <label>ID:</label><br>
+    <input type="text" th:field="*{id}"><br><br>
+
+    <label>Teacher ID:</label><br>
+    <input type="text" th:field="*{teacherId}"><br><br>
+
+    <label>Course ID:</label><br>
+    <input type="text" th:field="*{courseId}"><br><br>
+
+    <label>Role:</label><br>
+    <input type="text" th:field="*{role}"><br><br>
+
+    <button type="submit">Save</button>
+
+</form>
+
+<br>
+<a th:href="@{/templates/teachingassignment}">Back to list</a>
+
+</body>
+</html>

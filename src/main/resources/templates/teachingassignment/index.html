@@ -8,15 +8,15 @@
 
 <h1>All Teaching Assignments</h1>
 
-<a th:href="@{/teachingassignments/new}">Add New Assignment</a>
+<a th:href="@{/templates/teachingassignment/new}">Add New Assignment</a>
 
 <table border="1" cellpadding="6" cellspacing="0">
     <thead>
     <tr>
         <th>ID</th>
+        <th>Teacher ID</th>
         <th>Course ID</th>
-        <th>Staff ID</th>
-        <th>Managing</th>
+        <th>Role</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -24,11 +24,13 @@
     <tbody>
     <tr th:each="ta : ${teachingassignments}">
         <td th:text="${ta.id}"></td>
+        <td th:text="${ta.teacherId}"></td>
         <td th:text="${ta.courseId}"></td>
-        <td th:text="${ta.staffId}"></td>
-        <td th:text="${ta.managing}"></td>
+        <td th:text="${ta.role}"></td>
         <td>
-            <form th:action="@{'/teachingassignments/' + ${ta.id} + '/delete'}" method="post">
+            <a th:href="@{'/teachingassignments/' + ${ta.id}}">Details</a>
+            <a th:href="@{'/teachingassignments/' + ${ta.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/teachingassignments/' + ${ta.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>

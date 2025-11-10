@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teaching Assignment Details</title>
+</head>
+<body>
+
+<h1>Teaching Assignment Details</h1>
+
+<p><strong>ID:</strong> <span th:text="${assignment.id}"></span></p>
+<p><strong>Teacher ID:</strong> <span th:text="${assignment.teacherId}"></span></p>
+<p><strong>Course ID:</strong> <span th:text="${assignment.courseId}"></span></p>
+<p><strong>Role:</strong> <span th:text="${assignment.role}"></span></p>
+
+<br>
+<a th:href="@{/templates/teachingassignment}">Back to list</a>
+
+</body>
+</html>

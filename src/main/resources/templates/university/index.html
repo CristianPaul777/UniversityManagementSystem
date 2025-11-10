@@ -5,6 +5,7 @@
     <title>University List</title>
 </head>
 <body>
+
 <h1>All Universities</h1>
 
 <a th:href="@{/universities/new}">Add New University</a>
@@ -14,8 +15,7 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>City</th>
-        <th>Country</th>
+        <th>Location</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -24,10 +24,12 @@
     <tr th:each="university : ${universities}">
         <td th:text="${university.id}"></td>
         <td th:text="${university.name}"></td>
-        <td th:text="${university.city}"></td>
-        <td th:text="${university.country}"></td>
+        <td th:text="${university.location}"></td>
+
         <td>
-            <form th:action="@{'/universities/' + ${university.id} + '/delete'}" method="post">
+            <a th:href="@{'/universities/' + ${university.id}}">Details</a>
+            <a th:href="@{'/universities/' + ${university.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/universities/' + ${university.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>

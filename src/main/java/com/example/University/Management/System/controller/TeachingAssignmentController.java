@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/teachingassignments")
+@RequestMapping("/teachingassignments") // URL în browser
 public class TeachingAssignmentController {
 
     private final TeachingAssignmentService service;
@@ -17,43 +17,46 @@ public class TeachingAssignmentController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
-        model.addAttribute("teachingassignments", service.getAllTeachingAssignments());
-        return "teachingassignments/index";
+    public String index(Model model) {
+        model.addAttribute("assignments", service.getAllTeachingAssignments());
+        return "teachingassignment/index"; // denumirea folderului
     }
 
     @GetMapping("/new")
     public String showForm(Model model) {
-        model.addAttribute("teachingAssignment", new TeachingAssignment());
-        return "teachingassignments/form";
+        model.addAttribute("assignment", new TeachingAssignment());
+        return "teachingassignment/form";
     }
 
     @PostMapping
-    public String addTeachingAssignment(@ModelAttribute TeachingAssignment teachingAssignment) {
-        service.addTeachingAssignment(teachingAssignment);
+    public String add(@ModelAttribute TeachingAssignment assignment) {
+        service.addTeachingAssignment(assignment);
         return "redirect:/teachingassignments";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteTeachingAssignment(@PathVariable String id) {
-        service.deleteTeachingAssignment(id);
-        return "redirect:/teachingassignments";
-    }
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable String id, Model model) {
+    public String details(@PathVariable String id, Model model) {
         model.addAttribute("assignment", service.getTeachingAssignmentById(id));
         return "teachingassignment/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String edit(@PathVariable String id, Model model) {
         model.addAttribute("assignment", service.getTeachingAssignmentById(id));
         return "teachingassignment/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateAssignment(@PathVariable String id, @ModelAttribute TeachingAssignment assignment) {
-        service.updateTeachingAssignment(id, assignment);
-        return "redirect:/assignments";
+    public String update(@PathVariable String id, @ModelAttribute TeachingAssignment assignment) {
+        assignment.setId(id);
+        service.updateTeachingAssignment(assignment);
+        return "redirect:/teachingassignments";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        service.deleteTeachingAssignment(id);
+        return "redirect:/teachingassignments";
     }
 }
+
