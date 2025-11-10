@@ -28,9 +28,14 @@ public class StudentService {
     }
 
     public Student updateStudent(String id, Student updatedStudent) {
-
-        updatedStudent.setId(id);
-        return repo.save(updatedStudent);
+        Student existing = repo.findById(id);
+        if (existing != null) {
+            updatedStudent.setId(id);
+            repo.deleteById(id);
+            repo.save(updatedStudent);
+            return updatedStudent;
+        }
+        return null;
     }
 
     public void deleteStudent(String id) {

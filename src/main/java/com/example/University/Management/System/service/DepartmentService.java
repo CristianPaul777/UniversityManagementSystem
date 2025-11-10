@@ -29,9 +29,16 @@ public class DepartmentService {
 
 
     public Department updateDepartment(String id, Department updatedDepartment) {
-        updatedDepartment.setId(id);
-        return repo.save(updatedDepartment);
+        Department existing = repo.findById(id);
+        if (existing != null) {
+            updatedDepartment.setId(id);
+            repo.deleteById(id);
+            repo.save(updatedDepartment);
+            return updatedDepartment;
+        }
+        return null;
     }
+
 
     public void deleteDepartment(String id) {
         repo.deleteById(id);

@@ -29,8 +29,14 @@ public class RoomService {
 
 
     public Room updateRoom(String id, Room updatedRoom) {
-        updatedRoom.setId(id);
-        return repo.save(updatedRoom);
+        Room existing = repo.findById(id);
+        if (existing != null) {
+            updatedRoom.setId(id);
+            repo.deleteById(id);
+            repo.save(updatedRoom);
+            return updatedRoom;
+        }
+        return null;
     }
 
     public void deleteRoom(String id) {

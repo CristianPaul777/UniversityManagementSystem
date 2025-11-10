@@ -29,9 +29,16 @@ public class CourseService {
 
 
     public Course updateCourse(String id, Course updatedCourse) {
-        updatedCourse.setId(id);
-        return repo.save(updatedCourse);
+        Course existing = repo.findById(id);
+        if (existing != null) {
+            updatedCourse.setId(id);
+            repo.deleteById(id);
+            repo.save(updatedCourse);
+            return updatedCourse;
+        }
+        return null;
     }
+
 
     public void deleteCourse(String id) {
         repo.deleteById(id);

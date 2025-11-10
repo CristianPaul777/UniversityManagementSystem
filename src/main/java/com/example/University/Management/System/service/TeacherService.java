@@ -29,9 +29,16 @@ public class TeacherService {
 
 
     public Teacher updateTeacher(String id, Teacher updatedTeacher) {
-        updatedTeacher.setId(id);
-        return repo.save(updatedTeacher);
+        Teacher existing = repo.findById(id);
+        if (existing != null) {
+            updatedTeacher.setId(id);
+            repo.deleteById(id);
+            repo.save(updatedTeacher);
+            return updatedTeacher;
+        }
+        return null;
     }
+
 
     public void deleteTeacher(String id) {
         repo.deleteById(id);
