@@ -27,9 +27,15 @@ public class AssistantService {
         return repo.save(assistant);
     }
 
+
     public Assistant updateAssistant(String id, Assistant updatedAssistant) {
-        updatedAssistant.setId(id);
-        return repo.save(updatedAssistant);
+        Assistant existing = repo.findById(id);
+        if (existing != null) {
+            updatedAssistant.setId(id);
+            repo.deleteById(id);
+            return repo.save(updatedAssistant);
+        }
+        return null;
     }
 
     public void deleteAssistant(String id) {

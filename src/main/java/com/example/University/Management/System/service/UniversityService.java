@@ -27,9 +27,14 @@ public class UniversityService {
         return repo.save(university);
     }
 
-    public University updateUniversity(String id, University university) {
-        university.setId(id);
-        return repo.save(university);
+    public University updateUniversity(String id, University updatedUniversity) {
+        University existing = repo.findById(id);
+        if (existing != null) {
+            updatedUniversity.setId(id);
+            repo.deleteById(id);
+            return repo.save(updatedUniversity);
+        }
+        return null;
     }
 
     public void deleteUniversity(String id) {

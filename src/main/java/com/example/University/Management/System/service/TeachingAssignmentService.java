@@ -27,12 +27,17 @@ public class TeachingAssignmentService {
         return repo.save(assignment);
     }
 
-    public TeachingAssignment updateTeachingAssignment(TeachingAssignment assignment) {
-        return repo.update(assignment);
+    public TeachingAssignment updateTeachingAssignment(String id, TeachingAssignment updatedAssignment) {
+        TeachingAssignment existing = repo.findById(id);
+        if (existing != null) {
+            updatedAssignment.setId(id);
+            repo.deleteById(id);
+            return repo.save(updatedAssignment);
+        }
+        return null;
     }
 
     public void deleteTeachingAssignment(String id) {
         repo.deleteById(id);
     }
 }
-

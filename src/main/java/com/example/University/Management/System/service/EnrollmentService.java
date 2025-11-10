@@ -29,8 +29,13 @@ public class EnrollmentService {
 
 
     public Enrollment updateEnrollment(String id, Enrollment updatedEnrollment) {
-        updatedEnrollment.setId(id);
-        return repo.save(updatedEnrollment);
+        Enrollment existing = repo.findById(id);
+        if (existing != null) {
+            updatedEnrollment.setId(id);
+            repo.deleteById(id);
+            return repo.save(updatedEnrollment);
+        }
+        return null;
     }
 
     public void deleteEnrollment(String id) {
