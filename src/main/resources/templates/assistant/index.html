@@ -5,6 +5,7 @@
     <title>Assistant List</title>
 </head>
 <body>
+
 <h1>All Assistants</h1>
 
 <a th:href="@{/assistants/new}">Add New Assistant</a>
@@ -19,14 +20,17 @@
         <th>Actions</th>
     </tr>
     </thead>
+
     <tbody>
-    <tr th:each="assistant : ${assistants}">
-        <td th:text="${assistant.id}"></td>
-        <td th:text="${assistant.name}"></td>
-        <td th:text="${assistant.phoneNumber}"></td>
-        <td th:text="${assistant.role}"></td>
+    <tr th:each="a : ${assistants}">
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.name}"></td>
+        <td th:text="${a.phoneNumber}"></td>
+        <td th:text="${a.role}"></td>
         <td>
-            <form th:action="@{'/assistants/' + ${assistant.id} + '/delete'}" method="post">
+            <a th:href="@{'/assistants/' + ${a.id}}">Details</a>
+            <a th:href="@{'/assistants/' + ${a.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/assistants/' + ${a.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>

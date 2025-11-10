@@ -4,38 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class University extends BaseEntity {
+
     private String id;
     private String name;
-    private String city;
-    private String country;
-    private List<Department> departments;
-    private List<Room> rooms;
+    private String location;
 
-    public University() {
-        this.departments = new ArrayList<>();
-    }
+    public University() {}
 
-    public University(String id, String name, String city, String country) {
+    public University(String id, String name, String location) {
         this.id = id;
         this.name = name;
-        this.city = city;
-        this.country = country;
-        this.departments = new ArrayList<>();
-        this.rooms = new ArrayList<>();
+        this.location = location;
     }
 
     @Override
-    public String getId() {
-        return id;
-    }
-
+    public String getId() { return id; }
     public void setId(String id) { this.id = id; }
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    public String getCity() { return city; }
-    public void setCity(String city) { this.city = city; }
-    public String getCountry() { return country; }
-    public void setCountry(String country) { this.country = country; }
-    public List<Department> getDepartments() { return departments; }
-    public List<Room> getRooms() { return rooms; }
+
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 }

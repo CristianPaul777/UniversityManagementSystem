@@ -2,15 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Assistant</title>
+    <title>Edit Assistant</title>
 </head>
 <body>
 
-<h1>Add New Assistant</h1>
+<h1>Edit Assistant</h1>
 
-<form th:action="@{/assistants}" th:object="${assistant}" method="post">
+<form th:action="@{'/assistants/' + ${assistant.id} + '/edit'}" th:object="${assistant}" method="post">
+
     <label>ID:</label><br>
-    <input type="text" th:field="*{id}"><br><br>
+    <input type="text" th:field="*{id}" readonly><br><br>
 
     <label>Name:</label><br>
     <input type="text" th:field="*{name}"><br><br>
@@ -18,10 +19,10 @@
     <label>Phone Number:</label><br>
     <input type="text" th:field="*{phoneNumber}"><br><br>
 
-    <label>Role (LAB / TA / GRADER):</label><br>
+    <label>Role:</label><br>
     <input type="text" th:field="*{role}"><br><br>
 
-    <button type="submit">Save</button>
+    <button type="submit">Save Changes</button>
 </form>
 
 <br>
