@@ -39,4 +39,21 @@ public class RoomController {
         service.deleteRoom(id);
         return "redirect:/rooms";
     }
+    @GetMapping("/{id}")
+    public String showDetails(@PathVariable String id, Model model) {
+        model.addAttribute("room", service.getRoomById(id));
+        return "room/details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        model.addAttribute("room", service.getRoomById(id));
+        return "room/edit";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateRoom(@PathVariable String id, @ModelAttribute Room room) {
+        service.updateRoom(id, room);
+        return "redirect:/rooms";
+    }
 }

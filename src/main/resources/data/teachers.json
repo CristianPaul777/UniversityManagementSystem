@@ -1,12 +1,72 @@
 [
-  {"id": "T1", "name": "Prof. Madalina Dicu", "phoneNumber": "0712345678", "departmentId": "D1"},
-  {"id": "T2", "name": "Prof. Andreea Manuela", "phoneNumber": "0723456789", "departmentId": "D2"},
-  {"id": "T3", "name": "Prof. Mihai Pop", "phoneNumber": "0734567890", "departmentId": "D1"},
-  {"id": "T4", "name": "Prof. Elena Mic", "phoneNumber": "0745678901", "departmentId": "D3"},
-  {"id": "T5", "name": "Prof. Radu Stan", "phoneNumber": "0756789012", "departmentId": "D2"},
-  {"id": "T6", "name": "Prof. Ana Ella", "phoneNumber": "0767890123", "departmentId": "D4"},
-  {"id": "T7", "name": "Prof. Cristian Pap", "phoneNumber": "0778901234", "departmentId": "D3"},
-  {"id": "T8", "name": "Prof. Laura Muresan", "phoneNumber": "0789012345", "departmentId": "D5"},
-  {"id": "T9", "name": "Prof. Vlad Marian", "phoneNumber": "0790123456", "departmentId": "D1"},
-  {"id": "T10", "name": "Prof. Ioana Marica", "phoneNumber": "0701234567", "departmentId": "D4"}
+  {
+    "departmentId": "D2",
+    "id": "T2",
+    "name": "Prof. Andreea Manuela",
+    "phoneNumber": "0723456789",
+    "assignments": []
+  },
+  {
+    "departmentId": "D1",
+    "id": "T3",
+    "name": "Prof. Mihai Pop",
+    "phoneNumber": "0734567890",
+    "assignments": []
+  },
+  {
+    "departmentId": "D3",
+    "id": "T4",
+    "name": "Prof. Elena Mic",
+    "phoneNumber": "0745678901",
+    "assignments": []
+  },
+  {
+    "departmentId": "D2",
+    "id": "T5",
+    "name": "Prof. Radu Stan",
+    "phoneNumber": "0756789012",
+    "assignments": []
+  },
+  {
+    "departmentId": "D4",
+    "id": "T6",
+    "name": "Prof. Ana Ella",
+    "phoneNumber": "0767890123",
+    "assignments": []
+  },
+  {
+    "departmentId": "D3",
+    "id": "T7",
+    "name": "Prof. Cristian Pap",
+    "phoneNumber": "0778901234",
+    "assignments": []
+  },
+  {
+    "departmentId": "D5",
+    "id": "T8",
+    "name": "Prof. Laura Muresan",
+    "phoneNumber": "0789012345",
+    "assignments": []
+  },
+  {
+    "departmentId": "D1",
+    "id": "T9",
+    "name": "Prof. Vlad Marian",
+    "phoneNumber": "0790123456",
+    "assignments": []
+  },
+  {
+    "departmentId": "D4",
+    "id": "T10",
+    "name": "Prof. Ioana Marica",
+    "phoneNumber": "0701234567",
+    "assignments": []
+  },
+  {
+    "departmentId": "D4",
+    "id": "T1",
+    "name": "Prof. Madalina Dicu",
+    "phoneNumber": "0712345678",
+    "assignments": []
+  }
 ]

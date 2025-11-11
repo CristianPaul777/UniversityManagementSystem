@@ -13,6 +13,7 @@
     <thead>
     <tr>
         <th>ID</th>
+        <th>Number</th>
         <th>Building</th>
         <th>Capacity</th>
         <th>Actions</th>
@@ -21,10 +22,13 @@
     <tbody>
     <tr th:each="room : ${rooms}">
         <td th:text="${room.id}"></td>
+        <td th:text="${room.number}"></td>
         <td th:text="${room.building}"></td>
         <td th:text="${room.capacity}"></td>
         <td>
-            <form th:action="@{'/rooms/' + ${room.id} + '/delete'}" method="post">
+            <a th:href="@{'/rooms/' + ${room.id}}">Details</a> |
+            <a th:href="@{'/rooms/' + ${room.id} + '/edit'}">Edit</a> |
+            <form th:action="@{'/rooms/' + ${room.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>
