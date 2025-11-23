@@ -1,20 +1,43 @@
 package com.example.University.Management.System.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "courses")
 public class Course extends BaseEntity {
-    private String id;
-    private String title;
-    private int credits;
-    private String semester;
-    private String departmentId;
-    private String roomId;
-    private List<Enrollment> enrollments;
-    private List<TeachingAssignment> assignments;
 
-    public Course() {
-    }
+    @Id
+    @Column(length = 50)
+    private String id;
+
+    @Column(nullable = false, length = 150)
+    private String title;
+
+    @Column(nullable = false)
+    private int credits;
+
+    @Column(nullable = false, length = 20)
+    private String semester;
+
+    @Column(nullable = false, length = 50)
+    private String departmentId;
+
+    @Column(nullable = false, length = 50)
+    private String roomId;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Enrollment> enrollments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TeachingAssignment> assignments = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    public Course() {}
 
     public Course(String id, String title, int credits, String semester, String departmentId, String roomId) {
         this.id = id;
@@ -23,8 +46,6 @@ public class Course extends BaseEntity {
         this.semester = semester;
         this.departmentId = departmentId;
         this.roomId = roomId;
-        this.enrollments = new ArrayList<>();
-        this.assignments = new ArrayList<>();
     }
 
     @Override
@@ -43,6 +64,7 @@ public class Course extends BaseEntity {
     public void setDepartmentId(String departmentId) { this.departmentId = departmentId; }
     public String getRoomId() { return roomId; }
     public void setRoomId(String roomId) { this.roomId = roomId; }
+
     public List<Enrollment> getEnrollments() { return enrollments; }
     public List<TeachingAssignment> getAssignments() { return assignments; }
 }
