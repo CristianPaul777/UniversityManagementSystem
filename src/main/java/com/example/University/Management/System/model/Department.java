@@ -1,26 +1,36 @@
 package com.example.University.Management.System.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "departments")
 public class Department extends BaseEntity {
-    private String id;
-    private String name;
-    private String faculty;
-    private List<Course> courses;
-    private List<Staff> teachers;
 
-    public Department() {
-        this.teachers = new ArrayList<>();
-        this.courses = new ArrayList<>();
-    }
+    @Id
+    @Column(length = 50)
+    private String id;
+
+    @Column(nullable = false, length = 120)
+    private String name;
+
+    @Column(nullable = false, length = 120)
+    private String faculty;
+
+    @ManyToOne
+    @JoinColumn(name = "university_id")
+    private University university;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Teacher> teachers = new ArrayList<>();
+
+    public Department() {}
 
     public Department(String id, String name, String faculty) {
         this.id = id;
         this.name = name;
         this.faculty = faculty;
-        this.courses = new ArrayList<>();
-        this.teachers = new ArrayList<>();
     }
 
     @Override
@@ -29,10 +39,20 @@ public class Department extends BaseEntity {
     }
 
     public void setId(String id) { this.id = id; }
+
     public String getName() { return name; }
+
     public void setName(String name) { this.name = name; }
+
     public String getFaculty() { return faculty; }
+
     public void setFaculty(String faculty) { this.faculty = faculty; }
-    public List<Course> getCourses() { return courses; }
-    public List<Staff> getTeachers() { return teachers; }
+
+    public University getUniversity() { return university; }
+
+    public void setUniversity(University university) { this.university = university; }
+
+    public List<Teacher> getTeachers() { return teachers; }
+
+    public void setTeachers(List<Teacher> teachers) { this.teachers = teachers; }
 }
