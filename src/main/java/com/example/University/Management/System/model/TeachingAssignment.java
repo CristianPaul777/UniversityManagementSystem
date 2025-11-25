@@ -42,3 +42,5 @@ public class TeachingAssignment extends BaseEntity {
     public AssistantRole getRole() { return role; }
     public void setRole(AssistantRole role) { this.role = role; }
 }
+
+

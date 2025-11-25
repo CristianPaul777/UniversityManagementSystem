@@ -34,3 +34,5 @@ public class University extends BaseEntity {
 
     public List<Department> getDepartments() { return departments; }
 }
+
+
