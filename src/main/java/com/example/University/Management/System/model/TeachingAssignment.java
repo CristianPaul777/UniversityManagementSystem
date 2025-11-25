@@ -1,45 +1,44 @@
 package com.example.University.Management.System.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "teaching_assignments")
 public class TeachingAssignment extends BaseEntity {
 
+    @Id
+    @Column(length = 50)
     private String id;
-    private String teacherId;
-    private String courseId;
-    private String role;
 
-    public TeachingAssignment() { }
+    @ManyToOne
+    @JoinColumn(name = "teacher_id", nullable = false)
+    private Teacher teacher;
 
-    public TeachingAssignment(String id, String teacherId, String courseId, String role) {
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AssistantRole role;
+
+    public TeachingAssignment() {}
+
+    public TeachingAssignment(String id, Teacher teacher, Course course, AssistantRole role) {
         this.id = id;
-        this.teacherId = teacherId;
-        this.courseId = courseId;
+        this.teacher = teacher;
+        this.course = course;
         this.role = role;
     }
 
     @Override
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getTeacherId() {
-        return teacherId;
-    }
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
-    public String getCourseId() {
-        return courseId;
-    }
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public void setId(String id) { this.id = id; }
+    public Teacher getTeacher() { return teacher; }
+    public void setTeacher(Teacher teacher) { this.teacher = teacher; }
+    public Course getCourse() { return course; }
+    public void setCourse(Course course) { this.course = course; }
+    public AssistantRole getRole() { return role; }
+    public void setRole(AssistantRole role) { this.role = role; }
 }

@@ -1,23 +1,28 @@
 package com.example.University.Management.System.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "staff")
 public abstract class Staff extends BaseEntity {
-    private String id;
-    private String name;
-    private String phoneNumber;
-    private List<TeachingAssignment> assignments;
 
-    protected Staff() {
-        this.assignments = new ArrayList<>();
-    }
+    @Id
+    @Column(length = 50)
+    protected String id;
+
+    @Column(nullable = false)
+    protected String name;
+
+    @Column(nullable = false)
+    protected String phoneNumber;
+
+    public Staff() {}
 
     public Staff(String id, String name, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.assignments = new ArrayList<>();
     }
 
     @Override
@@ -30,5 +35,4 @@ public abstract class Staff extends BaseEntity {
     public void setName(String name) { this.name = name; }
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-    public List<TeachingAssignment> getAssignments() { return assignments; }
 }
