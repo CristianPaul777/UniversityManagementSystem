@@ -20,7 +20,7 @@ public class TeachingAssignmentService {
     }
 
     public TeachingAssignment getTeachingAssignmentById(String id) {
-        return repo.findById(id);
+        return repo.findById(id).orElse(null);
     }
 
     public TeachingAssignment addTeachingAssignment(TeachingAssignment assignment) {
@@ -28,10 +28,8 @@ public class TeachingAssignmentService {
     }
 
     public TeachingAssignment updateTeachingAssignment(String id, TeachingAssignment updatedAssignment) {
-        TeachingAssignment existing = repo.findById(id);
-        if (existing != null) {
+        if (repo.existsById(id)) {
             updatedAssignment.setId(id);
-            repo.deleteById(id);
             return repo.save(updatedAssignment);
         }
         return null;

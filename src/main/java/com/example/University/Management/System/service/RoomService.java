@@ -20,21 +20,17 @@ public class RoomService {
     }
 
     public Room getRoomById(String id) {
-        return repo.findById(id);
+        return repo.findById(id).orElse(null);
     }
 
     public Room addRoom(Room room) {
         return repo.save(room);
     }
 
-
     public Room updateRoom(String id, Room updatedRoom) {
-        Room existing = repo.findById(id);
-        if (existing != null) {
+        if (repo.existsById(id)) {
             updatedRoom.setId(id);
-            repo.deleteById(id);
-            repo.save(updatedRoom);
-            return updatedRoom;
+            return repo.save(updatedRoom);
         }
         return null;
     }

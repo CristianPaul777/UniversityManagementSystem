@@ -1,12 +1,9 @@
 package com.example.University.Management.System.repository;
 
 import com.example.University.Management.System.model.TeachingAssignment;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TeachingAssignmentRepository extends InFileRepository<TeachingAssignment> {
-
-    public TeachingAssignmentRepository() {
-        super("teachingAssignments.json", TeachingAssignment.class);
-    }
+public interface TeachingAssignmentRepository extends JpaRepository<TeachingAssignment, String> {
 }

@@ -20,7 +20,7 @@ public class UniversityService {
     }
 
     public University getUniversityById(String id) {
-        return repo.findById(id);
+        return repo.findById(id).orElse(null);
     }
 
     public University addUniversity(University university) {
@@ -28,10 +28,8 @@ public class UniversityService {
     }
 
     public University updateUniversity(String id, University updatedUniversity) {
-        University existing = repo.findById(id);
-        if (existing != null) {
+        if (repo.existsById(id)) {
             updatedUniversity.setId(id);
-            repo.deleteById(id);
             return repo.save(updatedUniversity);
         }
         return null;

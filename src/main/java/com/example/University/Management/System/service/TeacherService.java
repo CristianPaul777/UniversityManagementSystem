@@ -20,25 +20,20 @@ public class TeacherService {
     }
 
     public Teacher getTeacherById(String id) {
-        return repo.findById(id);
+        return repo.findById(id).orElse(null);
     }
 
     public Teacher addTeacher(Teacher teacher) {
         return repo.save(teacher);
     }
 
-
     public Teacher updateTeacher(String id, Teacher updatedTeacher) {
-        Teacher existing = repo.findById(id);
-        if (existing != null) {
+        if (repo.existsById(id)) {
             updatedTeacher.setId(id);
-            repo.deleteById(id);
-            repo.save(updatedTeacher);
-            return updatedTeacher;
+            return repo.save(updatedTeacher);
         }
         return null;
     }
-
 
     public void deleteTeacher(String id) {
         repo.deleteById(id);
