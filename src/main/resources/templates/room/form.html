@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Room</title>
-</head>
+<head><meta charset="UTF-8"><title>Add Room</title></head>
 <body>
-<h1>Add New Room</h1>
 
-<form th:action="@{/rooms}" method="post" th:object="${room}">
-    <label>ID:</label>
-    <input type="text" th:field="*{id}" /><br/>
+<h1>Add Room</h1>
 
-    <label>Number:</label>
-    <input type="text" th:field="*{number}" /><br/>
+<form th:action="@{/rooms}" th:object="${room}" method="post">
 
-    <label>Building:</label>
-    <input type="text" th:field="*{building}" /><br/>
+    <label>ID:</label><br>
+    <input type="text" th:field="*{id}">
+    <span th:errors="*{id}"></span><br><br>
 
-    <label>Capacity:</label>
-    <input type="number" th:field="*{capacity}" /><br/>
+    <label>Capacity:</label><br>
+    <input type="number" th:field="*{capacity}">
+    <span th:errors="*{capacity}"></span><br><br>
+
+    <label>Number:</label><br>
+    <input type="text" th:field="*{number}">
+    <span th:errors="*{number}"></span><br><br>
+
+    <label>Building:</label><br>
+    <input type="text" th:field="*{building}">
+    <span th:errors="*{building}"></span><br><br>
 
     <button type="submit">Save</button>
 </form>
 
-<a href="/rooms">Back to List</a>
+<a th:href="@{/rooms}">Back</a>
+
 </body>
 </html>

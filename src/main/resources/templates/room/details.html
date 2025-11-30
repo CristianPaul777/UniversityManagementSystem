@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Room Details</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Room Details</title></head>
 <body>
-<h2>Room Details</h2>
+
+<h1>Room Details</h1>
 
 <table border="1">
     <tr><th>ID</th><td th:text="${room.id}"></td></tr>
@@ -14,7 +12,19 @@
     <tr><th>Capacity</th><td th:text="${room.capacity}"></td></tr>
 </table>
 
-<br>
-<a href="/rooms">Back to list</a>
+<h2>Courses in this room</h2>
+
+<table border="1">
+    <thead><tr><th>Course Title</th><th>Semester</th></tr></thead>
+    <tbody>
+    <tr th:each="c : ${room.courses}">
+        <td th:text="${c.title}"></td>
+        <td th:text="${c.semester}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/rooms">Back</a>
+
 </body>
 </html>

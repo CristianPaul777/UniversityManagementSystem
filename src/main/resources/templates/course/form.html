@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Course</title>
-</head>
+<head><meta charset="UTF-8"><title>Add Course</title></head>
 <body>
 
-<h1>Add New Course</h1>
+<h1>Add Course</h1>
 
 <form th:action="@{/courses}" th:object="${course}" method="post">
+
     <label>ID:</label><br>
-    <input type="text" th:field="*{id}" /><br><br>
+    <input type="text" th:field="*{id}">
+    <span th:errors="*{id}"></span><br><br>
 
     <label>Title:</label><br>
-    <input type="text" th:field="*{title}" /><br><br>
+    <input type="text" th:field="*{title}">
+    <span th:errors="*{title}"></span><br><br>
 
     <label>Credits:</label><br>
-    <input type="number" th:field="*{credits}" /><br><br>
+    <input type="number" th:field="*{credits}">
+    <span th:errors="*{credits}"></span><br><br>
 
     <label>Semester:</label><br>
-    <input type="text" th:field="*{semester}" /><br><br>
+    <input type="text" th:field="*{semester}">
+    <span th:errors="*{semester}"></span><br><br>
 
     <label>Department ID:</label><br>
-    <input type="text" th:field="*{departmentId}" /><br><br>
+    <input type="text" th:field="*{department}">
+    <span th:errors="*{department}"></span><br><br>
 
     <label>Room ID:</label><br>
-    <input type="text" th:field="*{roomId}" /><br><br>
+    <input type="text" th:field="*{room}">
+    <span th:errors="*{room}"></span><br><br>
 
     <button type="submit">Save</button>
 </form>
 
-<br>
-<a th:href="@{/courses}">Back to list</a>
+<a th:href="@{/courses}">Back</a>
 
 </body>
 </html>
