@@ -17,43 +17,44 @@ public class RoomController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
+    public String index(Model model) {
         model.addAttribute("rooms", service.getAllRooms());
         return "room/index";
     }
 
     @GetMapping("/new")
-    public String showForm(Model model) {
+    public String createForm(Model model) {
         model.addAttribute("room", new Room());
         return "room/form";
     }
 
     @PostMapping
-    public String addRoom(@ModelAttribute Room room) {
+    public String add(@ModelAttribute Room room) {
         service.addRoom(room);
         return "redirect:/rooms";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteRoom(@PathVariable String id) {
-        service.deleteRoom(id);
-        return "redirect:/rooms";
-    }
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable String id, Model model) {
+    public String details(@PathVariable String id, Model model) {
         model.addAttribute("room", service.getRoomById(id));
         return "room/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String editForm(@PathVariable String id, Model model) {
         model.addAttribute("room", service.getRoomById(id));
         return "room/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateRoom(@PathVariable String id, @ModelAttribute Room room) {
+    public String update(@PathVariable String id, @ModelAttribute Room room) {
         service.updateRoom(id, room);
+        return "redirect:/rooms";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        service.deleteRoom(id);
         return "redirect:/rooms";
     }
 }

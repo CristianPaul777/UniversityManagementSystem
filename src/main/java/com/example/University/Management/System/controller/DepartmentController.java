@@ -17,7 +17,7 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
+    public String index(Model model) {
         model.addAttribute("departments", service.getAllDepartments());
         return "department/index";
     }
@@ -29,31 +29,32 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public String addDepartment(@ModelAttribute Department department) {
+    public String add(@ModelAttribute Department department) {
         service.addDepartment(department);
         return "redirect:/departments";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteDepartment(@PathVariable String id) {
-        service.deleteDepartment(id);
-        return "redirect:/departments";
-    }
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable String id, Model model) {
+    public String details(@PathVariable String id, Model model) {
         model.addAttribute("department", service.getDepartmentById(id));
         return "department/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String edit(@PathVariable String id, Model model) {
         model.addAttribute("department", service.getDepartmentById(id));
         return "department/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateDepartment(@PathVariable String id, @ModelAttribute Department department) {
+    public String update(@PathVariable String id, @ModelAttribute Department department) {
         service.updateDepartment(id, department);
+        return "redirect:/departments";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        service.deleteDepartment(id);
         return "redirect:/departments";
     }
 }

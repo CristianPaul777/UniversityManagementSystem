@@ -17,7 +17,7 @@ public class CourseController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
+    public String index(Model model) {
         model.addAttribute("courses", service.getAllCourses());
         return "course/index";
     }
@@ -29,31 +29,32 @@ public class CourseController {
     }
 
     @PostMapping
-    public String addCourse(@ModelAttribute Course course) {
+    public String add(@ModelAttribute Course course) {
         service.addCourse(course);
         return "redirect:/courses";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteCourse(@PathVariable String id) {
-        service.deleteCourse(id);
-        return "redirect:/courses";
-    }
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable String id, Model model) {
+    public String details(@PathVariable String id, Model model) {
         model.addAttribute("course", service.getCourseById(id));
         return "course/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String edit(@PathVariable String id, Model model) {
         model.addAttribute("course", service.getCourseById(id));
         return "course/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateCourse(@PathVariable String id, @ModelAttribute Course course) {
+    public String update(@PathVariable String id, @ModelAttribute Course course) {
         service.updateCourse(id, course);
+        return "redirect:/courses";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        service.deleteCourse(id);
         return "redirect:/courses";
     }
 }
