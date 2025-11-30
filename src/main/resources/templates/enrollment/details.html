@@ -8,13 +8,38 @@
 
 <h1>Enrollment Details</h1>
 
-<p><strong>ID:</strong> <span th:text="${enrollment.id}"></span></p>
-<p><strong>Student ID:</strong> <span th:text="${enrollment.studentId}"></span></p>
-<p><strong>Course ID:</strong> <span th:text="${enrollment.courseId}"></span></p>
-<p><strong>Grade:</strong> <span th:text="${enrollment.grade}"></span></p>
+<table border="1" cellpadding="6">
+    <tr>
+        <th>ID</th>
+        <td th:text="${enrollment.id}"></td>
+    </tr>
+
+    <tr>
+        <th>Grade</th>
+        <td th:text="${enrollment.grade}"></td>
+    </tr>
+
+    <tr>
+        <th>Student</th>
+        <td>
+            <a th:href="@{'/students/' + ${enrollment.student.id}}">
+                <span th:text="${enrollment.student.name}"></span>
+            </a>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Course</th>
+        <td>
+            <a th:href="@{'/courses/' + ${enrollment.course.id}}">
+                <span th:text="${enrollment.course.title}"></span>
+            </a>
+        </td>
+    </tr>
+</table>
 
 <br>
-<a th:href="@{/enrollments}">Back to list</a>
+<a th:href="@{/enrollments}">Back</a>
 
 </body>
 </html>

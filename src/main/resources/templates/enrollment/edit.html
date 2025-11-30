@@ -8,25 +8,28 @@
 
 <h1>Edit Enrollment</h1>
 
-<form th:action="@{'/enrollments/' + ${enrollment.id} + '/edit'}" th:object="${enrollment}" method="post">
+<form th:action="@{'/enrollments/' + ${enrollment.id} + '/edit'}"
+      th:object="${enrollment}" method="post">
 
     <label>ID:</label><br>
     <input type="text" th:field="*{id}" readonly><br><br>
 
     <label>Student ID:</label><br>
-    <input type="text" th:field="*{studentId}"><br><br>
+    <input type="text" th:field="*{student}">
+    <span th:errors="*{student}"></span><br><br>
 
     <label>Course ID:</label><br>
-    <input type="text" th:field="*{courseId}"><br><br>
+    <input type="text" th:field="*{course}">
+    <span th:errors="*{course}"></span><br><br>
 
     <label>Grade:</label><br>
-    <input type="text" th:field="*{grade}"><br><br>
+    <input type="text" th:field="*{grade}">
+    <span th:errors="*{grade}"></span><br><br>
 
-    <button type="submit">Save Changes</button>
+    <button type="submit">Save</button>
 </form>
 
-<br>
-<a th:href="@{/enrollments}">Back to list</a>
+<a th:href="@{/enrollments}">Cancel</a>
 
 </body>
 </html>
