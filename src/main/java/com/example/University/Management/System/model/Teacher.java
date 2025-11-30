@@ -19,7 +19,7 @@ public class Teacher extends BaseEntity {
 
     @Column(nullable = false, length = 120)
     @NotBlank(message = "Name must not be empty")
-    @Size(min = 2, max = 120, message = "Name must be between 2 and 120 characters")
+    @Size(min = 2, max = 120, message = "Name must be between 2 and 100 characters")
     private String name;
 
     @Column(nullable = false, length = 20)
@@ -30,11 +30,10 @@ public class Teacher extends BaseEntity {
     )
     private String phoneNumber;
 
-
-    @Column(name = "academic_rank", nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     @NotBlank(message = "Rank must not be empty")
     @Size(min = 2, max = 50, message = "Rank must be between 2 and 50 characters")
-    private String academicRank;
+    private String rank;
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
@@ -45,11 +44,11 @@ public class Teacher extends BaseEntity {
 
     public Teacher() {}
 
-    public Teacher(String id, String name, String phoneNumber, String academicRank, Department department) {
+    public Teacher(String id, String name, String phoneNumber, String rank, Department department) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.academicRank = academicRank;
+        this.rank = rank;
         this.department = department;
     }
 
@@ -63,8 +62,8 @@ public class Teacher extends BaseEntity {
     public String getPhoneNumber() { return phoneNumber; }
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public String getAcademicRank() { return academicRank; }
-    public void setAcademicRank(String academicRank) { this.academicRank = academicRank; }
+    public String getRank() { return rank; }
+    public void setRank(String rank) { this.rank = rank; }
 
     public Department getDepartment() { return department; }
     public void setDepartment(Department department) { this.department = department; }
