@@ -1,6 +1,9 @@
 package com.example.University.Management.System.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +13,17 @@ public class Department extends BaseEntity {
 
     @Id
     @Column(length = 50)
+    @NotBlank(message = "ID must not be empty")
     private String id;
 
     @Column(nullable = false, length = 120)
+    @NotBlank(message = "Department name must not be empty")
+    @Size(min = 2, max = 120, message = "Department name must be between 2 and 120 characters")
     private String name;
 
     @Column(nullable = false, length = 120)
+    @NotBlank(message = "Faculty name must not be empty")
+    @Size(min = 2, max = 120, message = "Faculty name must be between 2 and 120 characters")
     private String faculty;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = false)
@@ -39,5 +47,6 @@ public class Department extends BaseEntity {
     public void setName(String name) { this.name = name; }
     public String getFaculty() { return faculty; }
     public void setFaculty(String faculty) { this.faculty = faculty; }
+
     public List<Teacher> getTeachers() { return teachers; }
 }
