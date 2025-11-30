@@ -29,7 +29,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public String addStudent(@ModelAttribute Student student) {
+    public String add(@ModelAttribute Student student) {
         service.addStudent(student);
         return "redirect:/students";
     }

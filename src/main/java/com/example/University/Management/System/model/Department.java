@@ -18,10 +18,6 @@ public class Department extends BaseEntity {
     @Column(nullable = false, length = 120)
     private String faculty;
 
-    @ManyToOne
-    @JoinColumn(name = "university_id")
-    private University university;
-
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Teacher> teachers = new ArrayList<>();
 
@@ -39,20 +35,9 @@ public class Department extends BaseEntity {
     }
 
     public void setId(String id) { this.id = id; }
-
     public String getName() { return name; }
-
     public void setName(String name) { this.name = name; }
-
     public String getFaculty() { return faculty; }
-
     public void setFaculty(String faculty) { this.faculty = faculty; }
-
-    public University getUniversity() { return university; }
-
-    public void setUniversity(University university) { this.university = university; }
-
     public List<Teacher> getTeachers() { return teachers; }
-
-    public void setTeachers(List<Teacher> teachers) { this.teachers = teachers; }
 }

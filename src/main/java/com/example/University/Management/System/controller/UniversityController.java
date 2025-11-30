@@ -17,7 +17,7 @@ public class UniversityController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
+    public String index(Model model) {
         model.addAttribute("universities", service.getAllUniversities());
         return "university/index";
     }
@@ -29,31 +29,32 @@ public class UniversityController {
     }
 
     @PostMapping
-    public String addUniversity(@ModelAttribute University university) {
+    public String add(@ModelAttribute University university) {
         service.addUniversity(university);
         return "redirect:/universities";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteUniversity(@PathVariable String id) {
-        service.deleteUniversity(id);
-        return "redirect:/universities";
-    }
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable String id, Model model) {
+    public String details(@PathVariable String id, Model model) {
         model.addAttribute("university", service.getUniversityById(id));
         return "university/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String edit(@PathVariable String id, Model model) {
         model.addAttribute("university", service.getUniversityById(id));
         return "university/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateUniversity(@PathVariable String id, @ModelAttribute University university) {
+    public String update(@PathVariable String id, @ModelAttribute University university) {
         service.updateUniversity(id, university);
+        return "redirect:/universities";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        service.deleteUniversity(id);
         return "redirect:/universities";
     }
 }

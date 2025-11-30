@@ -17,44 +17,44 @@ public class EnrollmentController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
+    public String index(Model model) {
         model.addAttribute("enrollments", service.getAllEnrollments());
         return "enrollment/index";
     }
 
     @GetMapping("/new")
-    public String showForm(Model model) {
+    public String createForm(Model model) {
         model.addAttribute("enrollment", new Enrollment());
         return "enrollment/form";
     }
 
     @PostMapping
-    public String addEnrollment(@ModelAttribute Enrollment enrollment) {
+    public String add(@ModelAttribute Enrollment enrollment) {
         service.addEnrollment(enrollment);
         return "redirect:/enrollments";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteEnrollment(@PathVariable String id) {
-        service.deleteEnrollment(id);
-        return "redirect:/enrollments";
-    }
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable String id, Model model) {
+    public String details(@PathVariable String id, Model model) {
         model.addAttribute("enrollment", service.getEnrollmentById(id));
         return "enrollment/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String editForm(@PathVariable String id, Model model) {
         model.addAttribute("enrollment", service.getEnrollmentById(id));
         return "enrollment/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateEnrollment(@PathVariable String id, @ModelAttribute Enrollment enrollment) {
+    public String update(@PathVariable String id, @ModelAttribute Enrollment enrollment) {
         service.updateEnrollment(id, enrollment);
         return "redirect:/enrollments";
     }
 
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        service.deleteEnrollment(id);
+        return "redirect:/enrollments";
+    }
 }

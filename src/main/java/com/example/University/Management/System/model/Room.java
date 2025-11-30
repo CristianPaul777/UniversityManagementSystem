@@ -15,13 +15,13 @@ public class Room extends BaseEntity {
     @Column(nullable = false)
     private double capacity;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String number;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String building;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Course> courses = new ArrayList<>();
 
     public Room() {}
@@ -34,25 +34,14 @@ public class Room extends BaseEntity {
     }
 
     @Override
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public void setId(String id) { this.id = id; }
-
     public double getCapacity() { return capacity; }
-
     public void setCapacity(double capacity) { this.capacity = capacity; }
-
     public String getNumber() { return number; }
-
     public void setNumber(String number) { this.number = number; }
-
     public String getBuilding() { return building; }
-
     public void setBuilding(String building) { this.building = building; }
-
     public List<Course> getCourses() { return courses; }
-
-    public void setCourses(List<Course> courses) { this.courses = courses; }
 }

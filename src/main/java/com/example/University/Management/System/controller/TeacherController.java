@@ -17,43 +17,44 @@ public class TeacherController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
+    public String index(Model model) {
         model.addAttribute("teachers", service.getAllTeachers());
         return "teacher/index";
     }
 
     @GetMapping("/new")
-    public String showForm(Model model) {
+    public String form(Model model) {
         model.addAttribute("teacher", new Teacher());
         return "teacher/form";
     }
 
     @PostMapping
-    public String addTeacher(@ModelAttribute Teacher teacher) {
+    public String add(@ModelAttribute Teacher teacher) {
         service.addTeacher(teacher);
         return "redirect:/teachers";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteTeacher(@PathVariable String id) {
-        service.deleteTeacher(id);
-        return "redirect:/teachers";
-    }
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable String id, Model model) {
+    public String details(@PathVariable String id, Model model) {
         model.addAttribute("teacher", service.getTeacherById(id));
         return "teacher/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String edit(@PathVariable String id, Model model) {
         model.addAttribute("teacher", service.getTeacherById(id));
         return "teacher/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateTeacher(@PathVariable String id, @ModelAttribute Teacher teacher) {
+    public String update(@PathVariable String id, @ModelAttribute Teacher teacher) {
         service.updateTeacher(id, teacher);
+        return "redirect:/teachers";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        service.deleteTeacher(id);
         return "redirect:/teachers";
     }
 }

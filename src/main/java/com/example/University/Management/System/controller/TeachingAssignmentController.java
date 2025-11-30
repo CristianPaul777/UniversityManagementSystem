@@ -31,7 +31,7 @@ public class TeachingAssignmentController {
     @PostMapping
     public String add(@ModelAttribute TeachingAssignment assignment) {
         service.addTeachingAssignment(assignment);
-        return "redirect:/teachingassignment";
+        return "redirect:/teachingassignments";
     }
 
     @GetMapping("/{id}")
@@ -49,12 +49,12 @@ public class TeachingAssignmentController {
     @PostMapping("/{id}/edit")
     public String update(@PathVariable String id, @ModelAttribute TeachingAssignment assignment) {
         service.updateTeachingAssignment(id, assignment);
-        return "redirect:/teachingassignment";
+        return "redirect:/teachingassignments";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
         service.deleteTeachingAssignment(id);
-        return "redirect:/teachingassignment";
+        return "redirect:/teachingassignments";
     }
 }

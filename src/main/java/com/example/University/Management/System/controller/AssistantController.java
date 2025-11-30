@@ -17,7 +17,7 @@ public class AssistantController {
     }
 
     @GetMapping
-    public String getAll(Model model) {
+    public String index(Model model) {
         model.addAttribute("assistants", service.getAllAssistants());
         return "assistant/index";
     }
@@ -29,31 +29,32 @@ public class AssistantController {
     }
 
     @PostMapping
-    public String addAssistant(@ModelAttribute Assistant assistant) {
+    public String add(@ModelAttribute Assistant assistant) {
         service.addAssistant(assistant);
         return "redirect:/assistants";
     }
 
-    @PostMapping("/{id}/delete")
-    public String deleteAssistant(@PathVariable String id) {
-        service.deleteAssistant(id);
-        return "redirect:/assistants";
-    }
     @GetMapping("/{id}")
-    public String showDetails(@PathVariable String id, Model model) {
+    public String details(@PathVariable String id, Model model) {
         model.addAttribute("assistant", service.getAssistantById(id));
         return "assistant/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String edit(@PathVariable String id, Model model) {
         model.addAttribute("assistant", service.getAssistantById(id));
         return "assistant/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateAssistant(@PathVariable String id, @ModelAttribute Assistant assistant) {
+    public String update(@PathVariable String id, @ModelAttribute Assistant assistant) {
         service.updateAssistant(id, assistant);
+        return "redirect:/assistants";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable String id) {
+        service.deleteAssistant(id);
         return "redirect:/assistants";
     }
 }

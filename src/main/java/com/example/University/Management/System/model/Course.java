@@ -21,11 +21,13 @@ public class Course extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String semester;
 
-    @Column(nullable = false, length = 50)
-    private String departmentId;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
-    @Column(nullable = false, length = 50)
-    private String roomId;
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Enrollment> enrollments = new ArrayList<>();
@@ -33,25 +35,19 @@ public class Course extends BaseEntity {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TeachingAssignment> assignments = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private Room room;
-
     public Course() {}
 
-    public Course(String id, String title, int credits, String semester, String departmentId, String roomId) {
+    public Course(String id, String title, int credits, String semester, Department department, Room room) {
         this.id = id;
         this.title = title;
         this.credits = credits;
         this.semester = semester;
-        this.departmentId = departmentId;
-        this.roomId = roomId;
+        this.department = department;
+        this.room = room;
     }
 
     @Override
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public void setId(String id) { this.id = id; }
     public String getTitle() { return title; }
@@ -60,10 +56,12 @@ public class Course extends BaseEntity {
     public void setCredits(int credits) { this.credits = credits; }
     public String getSemester() { return semester; }
     public void setSemester(String semester) { this.semester = semester; }
-    public String getDepartmentId() { return departmentId; }
-    public void setDepartmentId(String departmentId) { this.departmentId = departmentId; }
-    public String getRoomId() { return roomId; }
-    public void setRoomId(String roomId) { this.roomId = roomId; }
+
+    public Department getDepartment() { return department; }
+    public void setDepartment(Department department) { this.department = department; }
+
+    public Room getRoom() { return room; }
+    public void setRoom(Room room) { this.room = room; }
 
     public List<Enrollment> getEnrollments() { return enrollments; }
     public List<TeachingAssignment> getAssignments() { return assignments; }
