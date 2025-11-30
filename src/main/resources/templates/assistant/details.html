@@ -8,13 +8,32 @@
 
 <h1>Assistant Details</h1>
 
-<p><strong>ID:</strong> <span th:text="${assistant.id}"></span></p>
-<p><strong>Name:</strong> <span th:text="${assistant.name}"></span></p>
-<p><strong>Phone Number:</strong> <span th:text="${assistant.phoneNumber}"></span></p>
-<p><strong>Role:</strong> <span th:text="${assistant.role}"></span></p>
+<table border="1" cellpadding="6">
+
+    <tr>
+        <th>ID</th>
+        <td th:text="${assistant.id}"></td>
+    </tr>
+
+    <tr>
+        <th>Name</th>
+        <td th:text="${assistant.name}"></td>
+    </tr>
+
+    <tr>
+        <th>Phone</th>
+        <td th:text="${assistant.phoneNumber}"></td>
+    </tr>
+
+    <tr>
+        <th>Role</th>
+        <td th:text="${assistant.role}"></td>
+    </tr>
+
+</table>
 
 <br>
-<a th:href="@{/assistants}">Back to list</a>
+<a th:href="@{/assistants}">Back</a>
 
 </body>
 </html>

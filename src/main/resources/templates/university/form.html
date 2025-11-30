@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Add University</title>
-</head>
+<head><meta charset="UTF-8"><title>Add University</title></head>
 <body>
 
-<h1>Add New University</h1>
+<h1>Add University</h1>
 
 <form th:action="@{/universities}" th:object="${university}" method="post">
 
     <label>ID:</label><br>
-    <input type="text" th:field="*{id}" /><br><br>
+    <input type="text" th:field="*{id}">
+    <span th:errors="*{id}"></span><br><br>
 
     <label>Name:</label><br>
-    <input type="text" th:field="*{name}" /><br><br>
-
-    <label>Location:</label><br>
-    <input type="text" th:field="*{location}" /><br><br>
+    <input type="text" th:field="*{name}">
+    <span th:errors="*{name}"></span><br><br>
 
     <button type="submit">Save</button>
 </form>
 
-<br>
-<a th:href="@{/universities}">Back to list</a>
+<a th:href="@{/universities}">Back</a>
 
 </body>
 </html>

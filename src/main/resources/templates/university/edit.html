@@ -8,22 +8,20 @@
 
 <h1>Edit University</h1>
 
-<form th:action="@{'/universities/' + ${university.id} + '/edit'}" th:object="${university}" method="post">
+<form th:action="@{'/universities/' + ${university.id} + '/edit'}"
+      th:object="${university}" method="post">
 
     <label>ID:</label><br>
     <input type="text" th:field="*{id}" readonly><br><br>
 
     <label>Name:</label><br>
-    <input type="text" th:field="*{name}"><br><br>
+    <input type="text" th:field="*{name}">
+    <span th:errors="*{name}"></span><br><br>
 
-    <label>Location:</label><br>
-    <input type="text" th:field="*{location}"><br><br>
-
-    <button type="submit">Save Changes</button>
+    <button type="submit">Save</button>
 </form>
 
-<br>
-<a th:href="@{/universities}">Back to list</a>
+<a th:href="@{/universities}">Cancel</a>
 
 </body>
 </html>
