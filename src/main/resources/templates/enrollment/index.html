@@ -24,8 +24,8 @@
     <tbody>
     <tr th:each="en : ${enrollments}">
         <td th:text="${en.id}"></td>
-        <td th:text="${en.studentId}"></td>
-        <td th:text="${en.courseId}"></td>
+        <td th:text="${en.student.id}"></td>
+        <td th:text="${en.course.id}"></td>
         <td th:text="${en.grade}"></td>
         <td>
             <a th:href="@{'/enrollments/' + ${en.id}}">Details</a>

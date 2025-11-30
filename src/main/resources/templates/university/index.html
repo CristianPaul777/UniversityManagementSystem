@@ -24,7 +24,6 @@
     <tr th:each="university : ${universities}">
         <td th:text="${university.id}"></td>
         <td th:text="${university.name}"></td>
-        <td th:text="${university.location}"></td>
 
         <td>
             <a th:href="@{'/universities/' + ${university.id}}">Details</a>

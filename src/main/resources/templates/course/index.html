@@ -17,8 +17,8 @@
         <th>Title</th>
         <th>Credits</th>
         <th>Semester</th>
-        <th>Department ID</th>
-        <th>Room ID</th>
+        <th>Department</th>
+        <th>Room</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -28,8 +28,12 @@
         <td th:text="${course.title}"></td>
         <td th:text="${course.credits}"></td>
         <td th:text="${course.semester}"></td>
-        <td th:text="${course.departmentId}"></td>
-        <td th:text="${course.roomId}"></td>
+
+
+        <td th:text="${course.department != null ? course.department.name : 'No dept'}"></td>
+
+        <td th:text="${course.room != null ? course.room.number : 'No room'}"></td>
+
         <td>
             <a th:href="@{'/courses/' + ${course.id}}">Details</a> |
             <a th:href="@{'/courses/' + ${course.id} + '/edit'}">Edit</a> |

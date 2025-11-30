@@ -25,8 +25,8 @@
     <tbody>
     <tr th:each="assignment : ${assignments}">
         <td th:text="${assignment.id}"></td>
-        <td th:text="${assignment.teacherId}"></td>
-        <td th:text="${assignment.courseId}"></td>
+        <td th:text="${assignment.teacher.id}"></td>
+        <td th:text="${assignment.course.id}"></td>
         <td th:text="${assignment.role}"></td>
         <td>
             <a th:href="@{'/teachingassignments/' + ${assignment.id}}">Details</a>

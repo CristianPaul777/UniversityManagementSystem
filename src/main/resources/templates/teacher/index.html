@@ -24,7 +24,9 @@
         <td th:text="${teacher.id}"></td>
         <td th:text="${teacher.name}"></td>
         <td th:text="${teacher.phoneNumber}"></td>
-        <td th:text="${teacher.departmentId}"></td>
+
+        <td th:text="${teacher.department != null ? teacher.department.name : 'No dept'}"></td>
+
         <td>
             <a th:href="@{'/teachers/' + ${teacher.id}}">Details</a> |
             <a th:href="@{'/teachers/' + ${teacher.id} + '/edit'}">Edit</a> |
