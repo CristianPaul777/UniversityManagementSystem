@@ -2,8 +2,10 @@ package com.example.University.Management.System.controller;
 
 import com.example.University.Management.System.model.Room;
 import com.example.University.Management.System.service.RoomService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,25 +31,64 @@ public class RoomController {
     }
 
     @PostMapping
-    public String add(@ModelAttribute Room room) {
+    public String add(@Valid @ModelAttribute("room") Room room,
+                      BindingResult bindingResult,
+                      Model model) {
+
+
+        if (bindingResult.hasErrors()) {
+            return "room/form";
+        }
+
+
+        if (room.getCapacity() <= 0) {
+            model.addAttribute("error", "Capacity must be greater than 0.");
+            return "room/form";
+        }
+
         service.addRoom(room);
         return "redirect:/rooms";
     }
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        model.addAttribute("room", service.getRoomById(id));
+        Room room = service.getRoomById(id);
+
+        if (room == null) {
+            return "redirect:/rooms";
+        }
+
+        model.addAttribute("room", room);
         return "room/details";
     }
 
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable String id, Model model) {
-        model.addAttribute("room", service.getRoomById(id));
+        Room room = service.getRoomById(id);
+
+        if (room == null) {
+            return "redirect:/rooms";
+        }
+
+        model.addAttribute("room", room);
         return "room/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable String id, @ModelAttribute Room room) {
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute("room") Room room,
+                         BindingResult bindingResult,
+                         Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "room/edit";
+        }
+
+        if (room.getCapacity() <= 0) {
+            model.addAttribute("error", "Capacity must be greater than 0.");
+            return "room/edit";
+        }
+
         service.updateRoom(id, room);
         return "redirect:/rooms";
     }

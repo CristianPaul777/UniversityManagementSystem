@@ -2,8 +2,10 @@ package com.example.University.Management.System.controller;
 
 import com.example.University.Management.System.model.Department;
 import com.example.University.Management.System.service.DepartmentService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,25 +31,53 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public String add(@ModelAttribute Department department) {
+    public String add(@Valid @ModelAttribute("department") Department department,
+                      BindingResult bindingResult,
+                      Model model) {
+
+
+        if (bindingResult.hasErrors()) {
+            return "department/form";
+        }
+
         service.addDepartment(department);
         return "redirect:/departments";
     }
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        model.addAttribute("department", service.getDepartmentById(id));
+        Department department = service.getDepartmentById(id);
+
+        if (department == null) {
+            return "redirect:/departments";
+        }
+
+        model.addAttribute("department", department);
         return "department/details";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable String id, Model model) {
-        model.addAttribute("department", service.getDepartmentById(id));
+        Department department = service.getDepartmentById(id);
+
+        if (department == null) {
+            return "redirect:/departments";
+        }
+
+        model.addAttribute("department", department);
         return "department/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable String id, @ModelAttribute Department department) {
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute("department") Department department,
+                         BindingResult bindingResult,
+                         Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "department/edit";
+        }
+
         service.updateDepartment(id, department);
         return "redirect:/departments";
     }

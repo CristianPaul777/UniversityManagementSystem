@@ -2,8 +2,10 @@ package com.example.University.Management.System.controller;
 
 import com.example.University.Management.System.model.University;
 import com.example.University.Management.System.service.UniversityService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,7 +31,16 @@ public class UniversityController {
     }
 
     @PostMapping
-    public String add(@ModelAttribute University university) {
+    public String add(
+            @Valid @ModelAttribute("university") University university,
+            BindingResult result,
+            Model model
+    ) {
+        if (result.hasErrors()) {
+            model.addAttribute("university", university);
+            return "university/form";
+        }
+
         service.addUniversity(university);
         return "redirect:/universities";
     }
@@ -47,7 +58,17 @@ public class UniversityController {
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable String id, @ModelAttribute University university) {
+    public String update(
+            @PathVariable String id,
+            @Valid @ModelAttribute("university") University university,
+            BindingResult result,
+            Model model
+    ) {
+        if (result.hasErrors()) {
+            model.addAttribute("university", university);
+            return "university/edit";
+        }
+
         service.updateUniversity(id, university);
         return "redirect:/universities";
     }

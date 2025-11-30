@@ -2,8 +2,10 @@ package com.example.University.Management.System.controller;
 
 import com.example.University.Management.System.model.Assistant;
 import com.example.University.Management.System.service.AssistantService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,25 +31,50 @@ public class AssistantController {
     }
 
     @PostMapping
-    public String add(@ModelAttribute Assistant assistant) {
+    public String add(@Valid @ModelAttribute("assistant") Assistant assistant,
+                      BindingResult bindingResult,
+                      Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "assistant/form";
+        }
+
         service.addAssistant(assistant);
         return "redirect:/assistants";
     }
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        model.addAttribute("assistant", service.getAssistantById(id));
+        Assistant assistant = service.getAssistantById(id);
+        if (assistant == null) {
+
+            return "redirect:/assistants";
+        }
+        model.addAttribute("assistant", assistant);
         return "assistant/details";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable String id, Model model) {
-        model.addAttribute("assistant", service.getAssistantById(id));
+        Assistant assistant = service.getAssistantById(id);
+        if (assistant == null) {
+            return "redirect:/assistants";
+        }
+        model.addAttribute("assistant", assistant);
         return "assistant/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable String id, @ModelAttribute Assistant assistant) {
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute("assistant") Assistant assistant,
+                         BindingResult bindingResult,
+                         Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            return "assistant/edit";
+        }
+
         service.updateAssistant(id, assistant);
         return "redirect:/assistants";
     }

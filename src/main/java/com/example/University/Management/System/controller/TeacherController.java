@@ -2,8 +2,10 @@ package com.example.University.Management.System.controller;
 
 import com.example.University.Management.System.model.Teacher;
 import com.example.University.Management.System.service.TeacherService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,7 +31,15 @@ public class TeacherController {
     }
 
     @PostMapping
-    public String add(@ModelAttribute Teacher teacher) {
+    public String add(@Valid @ModelAttribute Teacher teacher,
+                      BindingResult result,
+                      Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("teacher", teacher);
+            return "teacher/form";
+        }
+
         service.addTeacher(teacher);
         return "redirect:/teachers";
     }
@@ -47,7 +57,16 @@ public class TeacherController {
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable String id, @ModelAttribute Teacher teacher) {
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute Teacher teacher,
+                         BindingResult result,
+                         Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("teacher", teacher);
+            return "teacher/edit";
+        }
+
         service.updateTeacher(id, teacher);
         return "redirect:/teachers";
     }

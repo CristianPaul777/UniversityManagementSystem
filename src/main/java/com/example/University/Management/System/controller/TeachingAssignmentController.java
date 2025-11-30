@@ -2,8 +2,10 @@ package com.example.University.Management.System.controller;
 
 import com.example.University.Management.System.model.TeachingAssignment;
 import com.example.University.Management.System.service.TeachingAssignmentService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,7 +31,15 @@ public class TeachingAssignmentController {
     }
 
     @PostMapping
-    public String add(@ModelAttribute TeachingAssignment assignment) {
+    public String add(@Valid @ModelAttribute("assignment") TeachingAssignment assignment,
+                      BindingResult result,
+                      Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("assignment", assignment);
+            return "teachingassignment/form";
+        }
+
         service.addTeachingAssignment(assignment);
         return "redirect:/teachingassignments";
     }
@@ -47,7 +57,16 @@ public class TeachingAssignmentController {
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable String id, @ModelAttribute TeachingAssignment assignment) {
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute("assignment") TeachingAssignment assignment,
+                         BindingResult result,
+                         Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("assignment", assignment);
+            return "teachingassignment/edit";
+        }
+
         service.updateTeachingAssignment(id, assignment);
         return "redirect:/teachingassignments";
     }

@@ -39,6 +39,16 @@ public class StudentService {
         return null;
     }
 
+    public boolean emailExists(String email) {
+        return repo.findByEmail(email).isPresent();
+    }
+
+    public boolean emailBelongsToAnotherStudent(String email, String id) {
+        return repo.findByEmail(email)
+                .filter(s -> !s.getId().equals(id))
+                .isPresent();
+    }
+
     public void deleteStudent(String id) {
         repo.deleteById(id);
     }

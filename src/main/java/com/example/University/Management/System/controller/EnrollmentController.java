@@ -2,8 +2,10 @@ package com.example.University.Management.System.controller;
 
 import com.example.University.Management.System.model.Enrollment;
 import com.example.University.Management.System.service.EnrollmentService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,25 +31,64 @@ public class EnrollmentController {
     }
 
     @PostMapping
-    public String add(@ModelAttribute Enrollment enrollment) {
+    public String add(@Valid @ModelAttribute("enrollment") Enrollment enrollment,
+                      BindingResult bindingResult,
+                      Model model) {
+
+
+        if (bindingResult.hasErrors()) {
+            return "enrollment/form";
+        }
+
+
+        if (enrollment.getStudent() == null || enrollment.getCourse() == null) {
+            model.addAttribute("error", "Student or course does not exist!");
+            return "enrollment/form";
+        }
+
         service.addEnrollment(enrollment);
         return "redirect:/enrollments";
     }
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        model.addAttribute("enrollment", service.getEnrollmentById(id));
+        Enrollment enrollment = service.getEnrollmentById(id);
+
+        if (enrollment == null) {
+            return "redirect:/enrollments";
+        }
+
+        model.addAttribute("enrollment", enrollment);
         return "enrollment/details";
     }
 
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable String id, Model model) {
-        model.addAttribute("enrollment", service.getEnrollmentById(id));
+        Enrollment enrollment = service.getEnrollmentById(id);
+
+        if (enrollment == null) {
+            return "redirect:/enrollments";
+        }
+
+        model.addAttribute("enrollment", enrollment);
         return "enrollment/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable String id, @ModelAttribute Enrollment enrollment) {
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute("enrollment") Enrollment enrollment,
+                         BindingResult bindingResult,
+                         Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "enrollment/edit";
+        }
+
+        if (enrollment.getStudent() == null || enrollment.getCourse() == null) {
+            model.addAttribute("error", "Student or course does not exist!");
+            return "enrollment/edit";
+        }
+
         service.updateEnrollment(id, enrollment);
         return "redirect:/enrollments";
     }
