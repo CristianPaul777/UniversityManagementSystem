@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class Teacher extends BaseEntity {
 
     @Column(nullable = false, length = 120)
     @NotBlank(message = "Name must not be empty")
-    @Size(min = 2, max = 120, message = "Name must be between 2 and 100 characters")
+    @Size(min = 2, max = 120, message = "Name must be between 2 and 120 characters")
     private String name;
 
     @Column(nullable = false, length = 20)
@@ -30,7 +29,7 @@ public class Teacher extends BaseEntity {
     )
     private String phoneNumber;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "`rank`", nullable = false, length = 50)
     @NotBlank(message = "Rank must not be empty")
     @Size(min = 2, max = 50, message = "Rank must be between 2 and 50 characters")
     private String rank;

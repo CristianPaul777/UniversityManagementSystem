@@ -46,7 +46,7 @@ INSERT INTO students (id, name, email) VALUES
                                            ('S9', 'George Luca', 'george.luca@university.com'),
                                            ('S10', 'Cristian Bratu', 'cristian.bratu@university.com');
 
-INSERT INTO teachers (id, name, phone_number, rank, department_id) VALUES
+INSERT INTO teachers (id, name, phone_number, `rank`, department_id) VALUES
                                                                        ('T1', 'Ionescu Dan', '0711111111', 'Professor', 'D1'),
                                                                        ('T2', 'Popescu Ana', '0722222222', 'Lecturer', 'D1'),
                                                                        ('T3', 'Matei Ioan', '0733333333', 'Professor', 'D2'),
