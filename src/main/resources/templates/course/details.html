@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Course Details</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Course Details</title></head>
 <body>
-<h2>Course Details</h2>
+
+<h1>Course Details</h1>
 
 <table border="1">
     <tr><th>ID</th><td th:text="${course.id}"></td></tr>
     <tr><th>Title</th><td th:text="${course.title}"></td></tr>
     <tr><th>Credits</th><td th:text="${course.credits}"></td></tr>
     <tr><th>Semester</th><td th:text="${course.semester}"></td></tr>
-    <tr><th>Department ID</th><td th:text="${course.departmentId}"></td></tr>
-    <tr><th>Room ID</th><td th:text="${course.roomId}"></td></tr>
+    <tr><th>Department</th><td th:text="${course.departmentId}"></td></tr>
+    <tr><th>Room</th><td th:text="${course.room.number}"></td></tr>
 </table>
 
-<br>
-<a href="/courses">Back to list</a>
+<h2>Enrollments</h2>
+<table border="1">
+    <thead><tr><th>Student</th><th>Grade</th></tr></thead>
+    <tbody>
+    <tr th:each="e : ${course.enrollments}">
+        <td th:text="${e.student.name}"></td>
+        <td th:text="${e.grade}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Teaching Assignments</h2>
+<table border="1">
+    <thead><tr><th>Teacher</th><th>Role</th></tr></thead>
+    <tbody>
+    <tr th:each="a : ${course.assignments}">
+        <td th:text="${a.teacher.name}"></td>
+        <td th:text="${a.role}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/courses">Back</a>
+
 </body>
 </html>

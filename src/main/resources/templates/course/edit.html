@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit Course</title>
 </head>
 <body>
-<h2>Edit Course</h2>
 
-<form th:action="@{'/courses/' + ${course.id} + '/edit'}" th:object="${course}" method="post">
+<h1>Edit Course</h1>
+
+<form th:action="@{'/courses/' + ${course.id} + '/edit'}"
+      th:object="${course}" method="post">
+
     <label>ID:</label><br>
-    <input type="text" th:value="${course.id}" name="id" readonly><br><br>
+    <input type="text" th:field="*{id}" readonly><br><br>
 
     <label>Title:</label><br>
-    <input type="text" th:value="${course.title}" name="title"><br><br>
+    <input type="text" th:field="*{title}">
+    <span th:errors="*{title}"></span><br><br>
 
     <label>Credits:</label><br>
-    <input type="number" th:value="${course.credits}" name="credits"><br><br>
+    <input type="number" th:field="*{credits}">
+    <span th:errors="*{credits}"></span><br><br>
 
     <label>Semester:</label><br>
-    <input type="text" th:value="${course.semester}" name="semester"><br><br>
+    <input type="text" th:field="*{semester}">
+    <span th:errors="*{semester}"></span><br><br>
 
     <label>Department ID:</label><br>
-    <input type="text" th:value="${course.departmentId}" name="departmentId"><br><br>
+    <input type="text" th:field="*{department}">
+    <span th:errors="*{department}"></span><br><br>
 
     <label>Room ID:</label><br>
-    <input type="text" th:value="${course.roomId}" name="roomId"><br><br>
+    <input type="text" th:field="*{room}">
+    <span th:errors="*{room}"></span><br><br>
 
     <button type="submit">Save</button>
 </form>
 
-<br>
-<a href="/courses">Cancel</a>
+<a th:href="@{/courses}">Cancel</a>
+
 </body>
 </html>

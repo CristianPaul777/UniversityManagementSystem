@@ -8,13 +8,38 @@
 
 <h1>Teaching Assignment Details</h1>
 
-<p><strong>ID:</strong> <span th:text="${assignment.id}"></span></p>
-<p><strong>Teacher ID:</strong> <span th:text="${assignment.teacherId}"></span></p>
-<p><strong>Course ID:</strong> <span th:text="${assignment.courseId}"></span></p>
-<p><strong>Role:</strong> <span th:text="${assignment.role}"></span></p>
+<table border="1" cellpadding="6">
+    <tr>
+        <th>ID</th>
+        <td th:text="${assignment.id}"></td>
+    </tr>
+
+    <tr>
+        <th>Role</th>
+        <td th:text="${assignment.role}"></td>
+    </tr>
+
+    <tr>
+        <th>Teacher</th>
+        <td>
+            <a th:href="@{'/teachers/' + ${assignment.teacher.id}}">
+                <span th:text="${assignment.teacher.name}"></span>
+            </a>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Course</th>
+        <td>
+            <a th:href="@{'/courses/' + ${assignment.course.id}}">
+                <span th:text="${assignment.course.title}"></span>
+            </a>
+        </td>
+    </tr>
+</table>
 
 <br>
-<a th:href="@{/templates/teachingassignments}">Back to list</a>
+<a th:href="@{/teachingassignments}">Back</a>
 
 </body>
 </html>

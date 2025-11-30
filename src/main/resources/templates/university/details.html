@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>University Details</title>
-</head>
+<head><meta charset="UTF-8"><title>University Details</title></head>
 <body>
 
 <h1>University Details</h1>
 
-<p><strong>ID:</strong> <span th:text="${university.id}"></span></p>
-<p><strong>Name:</strong> <span th:text="${university.name}"></span></p>
-<p><strong>Location:</strong> <span th:text="${university.location}"></span></p>
+<table border="1">
+    <tr><th>ID</th><td th:text="${university.id}"></td></tr>
+    <tr><th>Name</th><td th:text="${university.name}"></td></tr>
+</table>
 
-<br>
-<a th:href="@{/universities}">Back to List</a>
+<h2>Departments</h2>
+
+<table border="1">
+    <thead><tr><th>Name</th><th>Faculty</th></tr></thead>
+    <tbody>
+    <tr th:each="d : ${university.departments}">
+        <td th:text="${d.name}"></td>
+        <td th:text="${d.faculty}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/universities">Back</a>
 
 </body>
 </html>

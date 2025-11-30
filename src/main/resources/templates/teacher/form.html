@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Teacher</title>
-</head>
+<head><meta charset="UTF-8"><title>Add Teacher</title></head>
 <body>
-<h1>Add New Teacher</h1>
 
-<form th:action="@{/teachers}" method="post" th:object="${teacher}">
-    <label>ID:</label>
-    <input type="text" th:field="*{id}" /><br/>
+<h1>Add Teacher</h1>
 
-    <label>Name:</label>
-    <input type="text" th:field="*{name}" /><br/>
+<form th:action="@{/teachers}" th:object="${teacher}" method="post">
 
-    <label>Phone Number:</label>
-    <input type="text" th:field="*{phoneNumber}" /><br/>
+    <label>ID:</label><br>
+    <input type="text" th:field="*{id}">
+    <span th:errors="*{id}"></span><br><br>
 
-    <label>Department ID:</label>
-    <input type="text" th:field="*{departmentId}" /><br/>
+    <label>Name:</label><br>
+    <input type="text" th:field="*{name}">
+    <span th:errors="*{name}"></span><br><br>
+
+    <label>Phone:</label><br>
+    <input type="text" th:field="*{phoneNumber}">
+    <span th:errors="*{phoneNumber}"></span><br><br>
+
+    <label>Rank:</label><br>
+    <input type="text" th:field="*{rank}">
+    <span th:errors="*{rank}"></span><br><br>
+
+    <label>Department:</label><br>
+    <input type="text" th:field="*{department}">
+    <span th:errors="*{department}"></span><br><br>
 
     <button type="submit">Save</button>
 </form>
 
-<a href="/teachers">Back to List</a>
+<a th:href="@{/teachers}">Back</a>
+
 </body>
 </html>

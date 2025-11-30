@@ -8,25 +8,28 @@
 
 <h1>Edit Assistant</h1>
 
-<form th:action="@{'/assistants/' + ${assistant.id} + '/edit'}" th:object="${assistant}" method="post">
+<form th:action="@{'/assistants/' + ${assistant.id} + '/edit'}"
+      th:object="${assistant}" method="post">
 
     <label>ID:</label><br>
     <input type="text" th:field="*{id}" readonly><br><br>
 
     <label>Name:</label><br>
-    <input type="text" th:field="*{name}"><br><br>
+    <input type="text" th:field="*{name}">
+    <span th:errors="*{name}"></span><br><br>
 
-    <label>Phone Number:</label><br>
-    <input type="text" th:field="*{phoneNumber}"><br><br>
+    <label>Phone:</label><br>
+    <input type="text" th:field="*{phoneNumber}">
+    <span th:errors="*{phoneNumber}"></span><br><br>
 
     <label>Role:</label><br>
-    <input type="text" th:field="*{role}"><br><br>
+    <input type="text" th:field="*{role}">
+    <span th:errors="*{role}"></span><br><br>
 
-    <button type="submit">Save Changes</button>
+    <button type="submit">Save</button>
 </form>
 
-<br>
-<a th:href="@{/assistants}">Back to list</a>
+<a th:href="@{/assistants}">Cancel</a>
 
 </body>
 </html>

@@ -1,29 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit Teacher</title>
 </head>
 <body>
-<h2>Edit Teacher</h2>
 
-<form th:action="@{'/teachers/' + ${teacher.id} + '/edit'}" th:object="${teacher}" method="post">
+<h1>Edit Teacher</h1>
+
+<form th:action="@{'/teachers/' + ${teacher.id} + '/edit'}"
+      th:object="${teacher}" method="post">
+
     <label>ID:</label><br>
     <input type="text" th:field="*{id}" readonly><br><br>
 
     <label>Name:</label><br>
-    <input type="text" th:field="*{name}"><br><br>
-
-    <label>Department ID:</label><br>
-    <input type="text" th:field="*{departmentId}"><br><br>
+    <input type="text" th:field="*{name}">
+    <span th:errors="*{name}"></span><br><br>
 
     <label>Phone:</label><br>
-    <input type="text" th:field="*{phoneNumber}"><br><br>
+    <input type="text" th:field="*{phoneNumber}">
+    <span th:errors="*{phoneNumber}"></span><br><br>
+
+    <label>Rank:</label><br>
+    <input type="text" th:field="*{rank}">
+    <span th:errors="*{rank}"></span><br><br>
+
+    <label>Department:</label><br>
+    <input type="text" th:field="*{department}">
+    <span th:errors="*{department}"></span><br><br>
 
     <button type="submit">Save</button>
 </form>
 
-<br>
-<a href="/teachers">Cancel</a>
+<a th:href="@{/teachers}">Cancel</a>
+
 </body>
 </html>

@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Teaching Assignment</title>
-</head>
+<head><meta charset="UTF-8"><title>Add Teaching Assignment</title></head>
 <body>
 
 <h1>Add Teaching Assignment</h1>
 
-<form th:action="@{/templates/teachingassignments}" th:object="${assignment}" method="post">
+<form th:action="@{/teachingassignments}" th:object="${assignment}" method="post">
 
     <label>ID:</label><br>
-    <input type="text" th:field="*{id}"><br><br>
+    <input type="text" th:field="*{id}">
+    <span th:errors="*{id}"></span><br><br>
 
     <label>Teacher ID:</label><br>
-    <input type="text" th:field="*{teacherId}"><br><br>
+    <input type="text" th:field="*{teacher}">
+    <span th:errors="*{teacher}"></span><br><br>
 
     <label>Course ID:</label><br>
-    <input type="text" th:field="*{courseId}"><br><br>
+    <input type="text" th:field="*{course}">
+    <span th:errors="*{course}"></span><br><br>
 
     <label>Role:</label><br>
-    <input type="text" th:field="*{role}"><br><br>
+    <input type="text" th:field="*{role}">
+    <span th:errors="*{role}"></span><br><br>
 
     <button type="submit">Save</button>
-
 </form>
 
-<br>
-<a th:href="@{/templates/teachingassignments}">Back to list</a>
+<a th:href="@{/teachingassignments}">Back</a>
 
 </body>
 </html>

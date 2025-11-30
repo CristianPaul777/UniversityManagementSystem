@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Department Details</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Department Details</title></head>
 <body>
-<h2>Department Details</h2>
+
+<h1>Department Details</h1>
 
 <table border="1">
     <tr><th>ID</th><td th:text="${department.id}"></td></tr>
@@ -13,7 +11,21 @@
     <tr><th>Faculty</th><td th:text="${department.faculty}"></td></tr>
 </table>
 
-<br>
-<a href="/departments">Back to list</a>
+<h2>Teachers</h2>
+
+<table border="1">
+    <thead>
+    <tr><th>Name</th><th>Rank</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="t : ${department.teachers}">
+        <td th:text="${t.name}"></td>
+        <td th:text="${t.rank}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/departments">Back</a>
+
 </body>
 </html>
