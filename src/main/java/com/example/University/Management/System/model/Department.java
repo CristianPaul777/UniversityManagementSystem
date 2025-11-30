@@ -26,15 +26,21 @@ public class Department extends BaseEntity {
     @Size(min = 2, max = 120, message = "Faculty name must be between 2 and 120 characters")
     private String faculty;
 
+
+    @ManyToOne
+    @JoinColumn(name = "university_id", nullable = false)
+    private University university;
+
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Teacher> teachers = new ArrayList<>();
 
     public Department() {}
 
-    public Department(String id, String name, String faculty) {
+    public Department(String id, String name, String faculty, University university) {
         this.id = id;
         this.name = name;
         this.faculty = faculty;
+        this.university = university;
     }
 
     @Override
@@ -47,6 +53,9 @@ public class Department extends BaseEntity {
     public void setName(String name) { this.name = name; }
     public String getFaculty() { return faculty; }
     public void setFaculty(String faculty) { this.faculty = faculty; }
+
+    public University getUniversity() { return university; }
+    public void setUniversity(University university) { this.university = university; }
 
     public List<Teacher> getTeachers() { return teachers; }
 }
