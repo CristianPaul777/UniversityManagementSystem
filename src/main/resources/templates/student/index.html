@@ -2,37 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Student List</title>
+    <title>Students</title>
 </head>
 <body>
 
-<h1>All Students</h1>
+<h1>Student List</h1>
 
-<a th:href="@{/students/new}">Add New Student</a>
+<a href="/students/new">Add New Student</a>
 
+<h3>Filter</h3>
 
-<form method="get" action="/students">
+<form method="get" th:action="@{/students}">
     Name: <input type="text" name="name" th:value="${name}">
     Email: <input type="text" name="email" th:value="${email}">
 
-    Sort:
-    <select name="sortField">
-        <option value="id">ID</option>
-        <option value="name">Name</option>
-        <option value="email">Email</option>
-    </select>
-
-    <select name="direction">
-        <option value="asc">ASC</option>
-        <option value="desc">DESC</option>
-    </select>
-
-    <button type="submit">Apply</button>
+    <button type="submit">Filter</button>
 </form>
 
-<br>
+<h3>Sort</h3>
+<a th:href="@{/students(sortField='name', sortDir=${reverseSort})}">Sort by Name</a> |
+<a th:href="@{/students(sortField='email', sortDir=${reverseSort})}">Sort by Email</a>
 
-<table border="1" cellpadding="6" cellspacing="0">
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
@@ -47,11 +38,11 @@
         <td th:text="${student.id}"></td>
         <td th:text="${student.name}"></td>
         <td th:text="${student.email}"></td>
+
         <td>
             <a th:href="@{'/students/' + ${student.id}}">Details</a> |
             <a th:href="@{'/students/' + ${student.id} + '/edit'}">Edit</a> |
-            <form th:action="@{'/students/' + ${student.id} + '/delete'}"
-                  method="post" style="display:inline;">
+            <form th:action="@{'/students/' + ${student.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>
