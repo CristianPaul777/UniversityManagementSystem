@@ -5,9 +5,23 @@
     <title>Teachers</title>
 </head>
 <body>
+
 <h1>Teacher List</h1>
 
 <a href="/teachers/new">Add New Teacher</a>
+
+<h3>Filter</h3>
+
+<form method="get" th:action="@{/teachers}">
+    Name: <input type="text" name="name" th:value="${name}">
+    Department: <input type="text" name="department" th:value="${department}">
+
+    <button type="submit">Filter</button>
+</form>
+
+<h3>Sort</h3>
+<a th:href="@{/teachers(sortField='name', sortDir=${reverseSort})}">Sort by Name</a> |
+<a th:href="@{/teachers(sortField='department', sortDir=${reverseSort})}">Sort by Department</a>
 
 <table border="1">
     <thead>
@@ -19,12 +33,12 @@
         <th>Actions</th>
     </tr>
     </thead>
+
     <tbody>
     <tr th:each="teacher : ${teachers}">
         <td th:text="${teacher.id}"></td>
         <td th:text="${teacher.name}"></td>
         <td th:text="${teacher.phoneNumber}"></td>
-
         <td th:text="${teacher.department != null ? teacher.department.name : 'No dept'}"></td>
 
         <td>
@@ -37,5 +51,6 @@
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

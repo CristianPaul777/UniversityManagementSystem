@@ -19,8 +19,21 @@ public class TeacherController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("teachers", service.getAllTeachers());
+    public String index(@RequestParam(defaultValue = "") String name,
+                        @RequestParam(defaultValue = "") String department,
+                        @RequestParam(defaultValue = "name") String sortField,
+                        @RequestParam(defaultValue = "asc") String sortDir,
+                        Model model) {
+
+        model.addAttribute("teachers",
+                service.getFilteredAndSortedTeachers(name, department, sortField, sortDir));
+
+        model.addAttribute("name", name);
+        model.addAttribute("department", department);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSort", sortDir.equals("asc") ? "desc" : "asc");
+
         return "teacher/index";
     }
 

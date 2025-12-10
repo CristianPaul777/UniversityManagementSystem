@@ -3,6 +3,8 @@ package com.example.University.Management.System.service;
 import com.example.University.Management.System.model.Course;
 import com.example.University.Management.System.repository.CourseRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +19,24 @@ public class CourseService {
         this.repo = repo;
     }
 
-    public List<Course> getAllCourses() {
-        return repo.findAll();
+    public List<Course> getCoursesFilteredAndSorted(String title, String semester, String sortField, String sortDir) {
+
+        Specification<Course> spec = Specification.where(null);
+
+        if (title != null && !title.isEmpty()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
+        }
+
+        if (semester != null && !semester.isEmpty()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.equal(root.get("semester"), semester));
+        }
+
+        Sort sort = Sort.by(sortField == null ? "title" : sortField);
+        sort = sortDir != null && sortDir.equals("desc") ? sort.descending() : sort.ascending();
+
+        return repo.findAll(spec, sort);
     }
 
     public Course getCourseById(String id) {

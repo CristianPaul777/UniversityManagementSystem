@@ -19,10 +19,27 @@ public class CourseController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("courses", service.getAllCourses());
+    public String index(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String semester,
+            @RequestParam(required = false, defaultValue = "title") String sortField,
+            @RequestParam(required = false, defaultValue = "asc") String sortDir,
+            Model model
+    ) {
+
+        model.addAttribute("courses",
+                service.getCoursesFilteredAndSorted(title, semester, sortField, sortDir));
+
+        model.addAttribute("titleFilter", title);
+        model.addAttribute("semesterFilter", semester);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "course/index";
     }
+
 
     @GetMapping("/new")
     public String showForm(Model model) {
