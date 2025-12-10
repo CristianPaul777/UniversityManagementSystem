@@ -10,6 +10,48 @@
 
 <a th:href="@{/assistants/new}">Add New Assistant</a>
 
+<hr>
+
+
+<form method="get" th:action="@{/assistants}">
+    <label>
+        Name:
+        <input type="text" name="name" th:value="${name}">
+    </label>
+
+    <label>
+        Role:
+        <select name="role">
+            <option value="">All</option>
+            <option value="LAB" th:selected="${role == 'LAB'}">LAB</option>
+            <option value="TA" th:selected="${role == 'TA'}">TA</option>
+            <option value="GRADER" th:selected="${role == 'GRADER'}">GRADER</option>
+        </select>
+    </label>
+
+    <label>
+        Sort by:
+        <select name="sortField">
+            <option value="id">ID</option>
+            <option value="name">Name</option>
+            <option value="phoneNumber">Phone</option>
+            <option value="role">Role</option>
+        </select>
+    </label>
+
+    <label>
+        Direction:
+        <select name="direction">
+            <option value="asc">ASC</option>
+            <option value="desc">DESC</option>
+        </select>
+    </label>
+
+    <button type="submit">Apply</button>
+</form>
+
+<hr>
+
 <table border="1" cellpadding="6" cellspacing="0">
     <thead>
     <tr>
@@ -30,7 +72,8 @@
         <td>
             <a th:href="@{'/assistants/' + ${a.id}}">Details</a>
             <a th:href="@{'/assistants/' + ${a.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/assistants/' + ${a.id} + '/delete'}" method="post" style="display:inline;">
+            <form th:action="@{'/assistants/' + ${a.id} + '/delete'}"
+                  method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>

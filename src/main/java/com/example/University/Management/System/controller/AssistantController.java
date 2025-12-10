@@ -1,6 +1,7 @@
 package com.example.University.Management.System.controller;
 
 import com.example.University.Management.System.model.Assistant;
+import com.example.University.Management.System.model.AssistantRole;
 import com.example.University.Management.System.service.AssistantService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -18,15 +19,31 @@ public class AssistantController {
         this.service = service;
     }
 
+
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("assistants", service.getAllAssistants());
+    public String index(@RequestParam(required = false) String name,
+                        @RequestParam(required = false) AssistantRole role,
+                        @RequestParam(defaultValue = "id") String sort,
+                        @RequestParam(defaultValue = "asc") String dir,
+                        Model model) {
+
+        model.addAttribute("assistants",
+                service.getFilteredAndSorted(name, role, sort, dir));
+
+        model.addAttribute("name", name);
+        model.addAttribute("role", role);
+        model.addAttribute("sort", sort);
+        model.addAttribute("dir", dir);
+        model.addAttribute("roles", AssistantRole.values());
+
         return "assistant/index";
     }
+
 
     @GetMapping("/new")
     public String showForm(Model model) {
         model.addAttribute("assistant", new Assistant());
+        model.addAttribute("roles", AssistantRole.values());
         return "assistant/form";
     }
 
@@ -36,6 +53,7 @@ public class AssistantController {
                       Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("roles", AssistantRole.values());
             return "assistant/form";
         }
 
@@ -43,16 +61,17 @@ public class AssistantController {
         return "redirect:/assistants";
     }
 
+
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
         Assistant assistant = service.getAssistantById(id);
         if (assistant == null) {
-
             return "redirect:/assistants";
         }
         model.addAttribute("assistant", assistant);
         return "assistant/details";
     }
+
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable String id, Model model) {
@@ -61,6 +80,7 @@ public class AssistantController {
             return "redirect:/assistants";
         }
         model.addAttribute("assistant", assistant);
+        model.addAttribute("roles", AssistantRole.values());
         return "assistant/edit";
     }
 
@@ -71,13 +91,14 @@ public class AssistantController {
                          Model model) {
 
         if (bindingResult.hasErrors()) {
-
+            model.addAttribute("roles", AssistantRole.values());
             return "assistant/edit";
         }
 
         service.updateAssistant(id, assistant);
         return "redirect:/assistants";
     }
+
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
