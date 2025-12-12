@@ -2,15 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>University List</title>
+    <title>Universities</title>
 </head>
 <body>
 
-<h1>All Universities</h1>
+<h1>University List</h1>
 
-<a th:href="@{/universities/new}">Add New University</a>
+<a href="/universities/new">Add New University</a>
 
-<table border="1" cellpadding="6" cellspacing="0">
+<h3>Filter</h3>
+
+<form method="get" th:action="@{/universities}">
+    Name: <input type="text" name="name" th:value="${name}">
+
+    <button type="submit">Filter</button>
+</form>
+
+<h3>Sort</h3>
+<a th:href="@{/universities(sortField='name', sortDir=${reverseSort})}">Sort by Name</a> |
+<a th:href="@{/universities(sortField='id', sortDir=${reverseSort})}">Sort by ID</a>
+
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
@@ -25,9 +37,10 @@
         <td th:text="${university.name}"></td>
 
         <td>
-            <a th:href="@{'/universities/' + ${university.id}}">Details</a>
-            <a th:href="@{'/universities/' + ${university.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/universities/' + ${university.id} + '/delete'}" method="post" style="display:inline;">
+            <a th:href="@{'/universities/' + ${university.id}}">Details</a> |
+            <a th:href="@{'/universities/' + ${university.id} + '/edit'}">Edit</a> |
+            <form th:action="@{'/universities/' + ${university.id} + '/delete'}"
+                  method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>
