@@ -2,6 +2,7 @@ package com.example.University.Management.System.service;
 
 import com.example.University.Management.System.model.Enrollment;
 import com.example.University.Management.System.repository.EnrollmentRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,36 @@ public class EnrollmentService {
     public List<Enrollment> getAllEnrollments() {
         return repo.findAll();
     }
+
+    public List<Enrollment> getSortedEnrollments(String field, String direction) {
+        Sort sort = direction.equalsIgnoreCase("asc")
+                ? Sort.by(field).ascending()
+                : Sort.by(field).descending();
+
+        return repo.findAll(sort);
+    }
+
+    public List<Enrollment> filterAndSort(String studentId,
+                                          String courseId,
+                                          String field,
+                                          String direction) {
+
+        Sort sort = Sort.by(field).ascending();
+        if (direction.equalsIgnoreCase("desc")) {
+            sort = sort.descending();
+        }
+
+        if (studentId != null && !studentId.isEmpty()) {
+            return repo.findByStudentId(studentId, sort);
+        }
+
+        if (courseId != null && !courseId.isEmpty()) {
+            return repo.findByCourseId(courseId, sort);
+        }
+
+        return repo.findAll(sort);
+    }
+
 
     public Enrollment getEnrollmentById(String id) {
         return repo.findById(id).orElse(null);

@@ -19,8 +19,22 @@ public class EnrollmentController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("enrollments", service.getAllEnrollments());
+    public String index(
+            @RequestParam(required = false) String studentId,
+            @RequestParam(required = false) String courseId,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "asc") String dir,
+            Model model
+    ) {
+
+        model.addAttribute("enrollments",
+                service.filterAndSort(studentId, courseId, sort, dir));
+
+        model.addAttribute("studentId", studentId);
+        model.addAttribute("courseId", courseId);
+        model.addAttribute("sort", sort);
+        model.addAttribute("dir", dir);
+
         return "enrollment/index";
     }
 
@@ -35,11 +49,9 @@ public class EnrollmentController {
                       BindingResult bindingResult,
                       Model model) {
 
-
         if (bindingResult.hasErrors()) {
             return "enrollment/form";
         }
-
 
         if (enrollment.getStudent() == null || enrollment.getCourse() == null) {
             model.addAttribute("error", "Student or course does not exist!");

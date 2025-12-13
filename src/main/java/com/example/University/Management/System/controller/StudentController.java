@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/students")
 public class StudentController {
@@ -19,8 +21,22 @@ public class StudentController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("students", service.getAllStudents());
+    public String index(@RequestParam(required = false) String name,
+                        @RequestParam(required = false) String email,
+                        @RequestParam(defaultValue = "name") String sortField,
+                        @RequestParam(defaultValue = "asc") String direction,
+                        Model model) {
+
+        List<Student> students = service.getFilteredAndSorted(
+                name, email, sortField, direction
+        );
+
+        model.addAttribute("students", students);
+        model.addAttribute("name", name);
+        model.addAttribute("email", email);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("direction", direction);
+
         return "student/index";
     }
 
@@ -35,11 +51,9 @@ public class StudentController {
                       BindingResult bindingResult,
                       Model model) {
 
-
         if (bindingResult.hasErrors()) {
             return "student/form";
         }
-
 
         if (service.emailExists(student.getEmail())) {
             model.addAttribute("error", "A student with this email already exists.");
@@ -83,7 +97,6 @@ public class StudentController {
         if (bindingResult.hasErrors()) {
             return "student/edit";
         }
-
 
         if (service.emailBelongsToAnotherStudent(student.getEmail(), id)) {
             model.addAttribute("error", "Another student already uses this email.");

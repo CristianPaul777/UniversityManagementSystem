@@ -2,13 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Enrollment List</title>
+    <title>Enrollments</title>
 </head>
 <body>
 
-<h1>All Enrollments</h1>
+<h1>Enrollment List</h1>
 
-<a th:href="@{/enrollments/new}">Add New Enrollment</a>
+<a href="/enrollments/new">Add New Enrollment</a>
+
+<h3>Filter</h3>
+
+<form method="get" th:action="@{/enrollments}">
+    Student ID:
+    <input type="text" name="studentId" th:value="${studentId}">
+
+    Course ID:
+    <input type="text" name="courseId" th:value="${courseId}">
+
+    <button type="submit">Filter</button>
+</form>
+
+<h3>Sort</h3>
+
+<a th:href="@{/enrollments(sortField='id', sortDir=${reverseSort})}">
+    Sort by ID
+</a> |
+<a th:href="@{/enrollments(sortField='grade', sortDir=${reverseSort})}">
+    Sort by Grade
+</a>
 
 <table border="1" cellpadding="6" cellspacing="0">
     <thead>
@@ -24,13 +45,16 @@
     <tbody>
     <tr th:each="en : ${enrollments}">
         <td th:text="${en.id}"></td>
-        <td th:text="${en.student.id}"></td>
-        <td th:text="${en.course.id}"></td>
+        <td th:text="${en.student != null ? en.student.id : 'N/A'}"></td>
+        <td th:text="${en.course != null ? en.course.id : 'N/A'}"></td>
         <td th:text="${en.grade}"></td>
+
         <td>
-            <a th:href="@{'/enrollments/' + ${en.id}}">Details</a>
-            <a th:href="@{'/enrollments/' + ${en.id} + '/edit'}">Edit</a>
-            <form th:action="@{'/enrollments/' + ${en.id} + '/delete'}" method="post" style="display:inline;">
+            <a th:href="@{'/enrollments/' + ${en.id}}">Details</a> |
+            <a th:href="@{'/enrollments/' + ${en.id} + '/edit'}">Edit</a> |
+            <form th:action="@{'/enrollments/' + ${en.id} + '/delete'}"
+                  method="post"
+                  style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>

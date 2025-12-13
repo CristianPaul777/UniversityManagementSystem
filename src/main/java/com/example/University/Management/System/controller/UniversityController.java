@@ -19,8 +19,19 @@ public class UniversityController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("universities", service.getAllUniversities());
+    public String index(
+            @RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "asc") String dir,
+            Model model
+    ) {
+        model.addAttribute("universities",
+                service.getFilteredAndSorted(name, sort, dir));
+
+        model.addAttribute("name", name);
+        model.addAttribute("sort", sort);
+        model.addAttribute("dir", dir);
+
         return "university/index";
     }
 
@@ -33,11 +44,9 @@ public class UniversityController {
     @PostMapping
     public String add(
             @Valid @ModelAttribute("university") University university,
-            BindingResult result,
-            Model model
+            BindingResult result
     ) {
         if (result.hasErrors()) {
-            model.addAttribute("university", university);
             return "university/form";
         }
 
@@ -61,11 +70,9 @@ public class UniversityController {
     public String update(
             @PathVariable String id,
             @Valid @ModelAttribute("university") University university,
-            BindingResult result,
-            Model model
+            BindingResult result
     ) {
         if (result.hasErrors()) {
-            model.addAttribute("university", university);
             return "university/edit";
         }
 

@@ -2,14 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Student List</title>
+    <title>Students</title>
 </head>
 <body>
-<h1>All Students</h1>
 
-<a th:href="@{/students/new}">Add New Student</a>
+<h1>Student List</h1>
 
-<table border="1" cellpadding="6" cellspacing="0">
+<a href="/students/new">Add New Student</a>
+
+<h3>Filter</h3>
+
+<form method="get" th:action="@{/students}">
+    Name: <input type="text" name="name" th:value="${name}">
+    Email: <input type="text" name="email" th:value="${email}">
+
+    <button type="submit">Filter</button>
+</form>
+
+<h3>Sort</h3>
+<a th:href="@{/students(sortField='name', sortDir=${reverseSort})}">Sort by Name</a> |
+<a th:href="@{/students(sortField='email', sortDir=${reverseSort})}">Sort by Email</a>
+
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
@@ -18,11 +32,13 @@
         <th>Actions</th>
     </tr>
     </thead>
+
     <tbody>
     <tr th:each="student : ${students}">
         <td th:text="${student.id}"></td>
         <td th:text="${student.name}"></td>
         <td th:text="${student.email}"></td>
+
         <td>
             <a th:href="@{'/students/' + ${student.id}}">Details</a> |
             <a th:href="@{'/students/' + ${student.id} + '/edit'}">Edit</a> |
