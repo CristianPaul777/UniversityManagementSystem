@@ -19,8 +19,20 @@ public class RoomController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("rooms", service.getAllRooms());
+    public String index(@RequestParam(required = false) String sort,
+                        @RequestParam(required = false) String order,
+                        @RequestParam(required = false) String numberFilter,
+                        @RequestParam(required = false) String buildingFilter,
+                        Model model) {
+
+        model.addAttribute("rooms",
+                service.getAllRooms(sort, order, numberFilter, buildingFilter));
+
+        model.addAttribute("numberFilter", numberFilter);
+        model.addAttribute("buildingFilter", buildingFilter);
+        model.addAttribute("sort", sort);
+        model.addAttribute("order", order);
+
         return "room/index";
     }
 
@@ -35,11 +47,9 @@ public class RoomController {
                       BindingResult bindingResult,
                       Model model) {
 
-
         if (bindingResult.hasErrors()) {
             return "room/form";
         }
-
 
         if (room.getCapacity() <= 0) {
             model.addAttribute("error", "Capacity must be greater than 0.");

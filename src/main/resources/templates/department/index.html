@@ -5,9 +5,36 @@
     <title>Departments</title>
 </head>
 <body>
+
 <h1>Department List</h1>
 
 <a href="/departments/new">Add New Department</a>
+
+<hr>
+
+<form method="get" action="/departments">
+    <label>Name:</label>
+    <input type="text" name="name" th:value="${name}">
+
+    <label>Faculty:</label>
+    <input type="text" name="faculty" th:value="${faculty}">
+
+    <label>Sort by:</label>
+    <select name="sortField" th:value="${sortField}">
+        <option value="name">Name</option>
+        <option value="faculty">Faculty</option>
+        <option value="id">ID</option>
+    </select>
+
+    <select name="sortDir" th:value="${sortDir}">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+
+    <button type="submit">Apply</button>
+</form>
+
+<hr>
 
 <table border="1">
     <thead>
@@ -18,11 +45,13 @@
         <th>Actions</th>
     </tr>
     </thead>
+
     <tbody>
     <tr th:each="department : ${departments}">
         <td th:text="${department.id}"></td>
         <td th:text="${department.name}"></td>
         <td th:text="${department.faculty}"></td>
+
         <td>
             <a th:href="@{'/departments/' + ${department.id}}">Details</a> |
             <a th:href="@{'/departments/' + ${department.id} + '/edit'}">Edit</a> |
@@ -33,5 +62,6 @@
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>

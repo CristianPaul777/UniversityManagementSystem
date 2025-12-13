@@ -5,9 +5,34 @@
     <title>Rooms</title>
 </head>
 <body>
+
 <h1>Room List</h1>
 
 <a href="/rooms/new">Add New Room</a>
+
+<h3>Filter</h3>
+<form method="get" action="/rooms">
+    Number: <input type="text" name="numberFilter" th:value="${numberFilter}">
+    Building: <input type="text" name="buildingFilter" th:value="${buildingFilter}">
+    <button type="submit">Apply</button>
+</form>
+
+<h3>Sort</h3>
+<form method="get" action="/rooms">
+    <select name="sort">
+        <option value="">None</option>
+        <option value="number" th:selected="${sort == 'number'}">Number</option>
+        <option value="building" th:selected="${sort == 'building'}">Building</option>
+        <option value="capacity" th:selected="${sort == 'capacity'}">Capacity</option>
+    </select>
+
+    <select name="order">
+        <option value="asc" th:selected="${order == 'asc'}">Ascending</option>
+        <option value="desc" th:selected="${order == 'desc'}">Descending</option>
+    </select>
+
+    <button type="submit">Sort</button>
+</form>
 
 <table border="1">
     <thead>
@@ -19,6 +44,7 @@
         <th>Actions</th>
     </tr>
     </thead>
+
     <tbody>
     <tr th:each="room : ${rooms}">
         <td th:text="${room.id}"></td>
@@ -34,6 +60,8 @@
         </td>
     </tr>
     </tbody>
+
 </table>
+
 </body>
 </html>

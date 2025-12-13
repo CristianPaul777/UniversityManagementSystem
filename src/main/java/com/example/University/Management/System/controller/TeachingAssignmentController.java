@@ -19,8 +19,23 @@ public class TeachingAssignmentController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("assignments", service.getAllTeachingAssignments());
+    public String index(
+            @RequestParam(required = false) String teacher,
+            @RequestParam(required = false) String course,
+            @RequestParam(required = false) String role,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "asc") String sortDir,
+            Model model
+    ) {
+        model.addAttribute("assignments",
+                service.findWithFilterAndSort(teacher, course, role, sortField, sortDir));
+
+        model.addAttribute("teacherFilter", teacher);
+        model.addAttribute("courseFilter", course);
+        model.addAttribute("roleFilter", role);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+
         return "teachingassignment/index";
     }
 
@@ -32,48 +47,44 @@ public class TeachingAssignmentController {
 
     @PostMapping
     public String add(@Valid @ModelAttribute("assignment") TeachingAssignment assignment,
-                      BindingResult result,
-                      Model model) {
-
+                      BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("assignment", assignment);
             return "teachingassignment/form";
         }
-
-        service.addTeachingAssignment(assignment);
+        service.save(assignment);
         return "redirect:/teachingassignments";
     }
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        model.addAttribute("assignment", service.getTeachingAssignmentById(id));
+        model.addAttribute("assignment", service.getById(id));
         return "teachingassignment/details";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable String id, Model model) {
-        model.addAttribute("assignment", service.getTeachingAssignmentById(id));
+        model.addAttribute("assignment", service.getById(id));
         return "teachingassignment/edit";
     }
 
     @PostMapping("/{id}/edit")
     public String update(@PathVariable String id,
                          @Valid @ModelAttribute("assignment") TeachingAssignment assignment,
-                         BindingResult result,
-                         Model model) {
+                         BindingResult result) {
 
         if (result.hasErrors()) {
-            model.addAttribute("assignment", assignment);
             return "teachingassignment/edit";
         }
 
-        service.updateTeachingAssignment(id, assignment);
+        assignment.setId(id);
+        service.save(assignment);
+
         return "redirect:/teachingassignments";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable String id) {
-        service.deleteTeachingAssignment(id);
+        service.delete(id);
         return "redirect:/teachingassignments";
     }
 }

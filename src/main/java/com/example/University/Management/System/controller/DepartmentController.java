@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/departments")
 public class DepartmentController {
@@ -19,8 +21,21 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("departments", service.getAllDepartments());
+    public String index(@RequestParam(defaultValue = "") String name,
+                        @RequestParam(defaultValue = "") String faculty,
+                        @RequestParam(defaultValue = "name") String sortField,
+                        @RequestParam(defaultValue = "asc") String sortDir,
+                        Model model) {
+
+        List<Department> departments = service.filterDepartments(name, faculty, sortField, sortDir);
+
+        model.addAttribute("departments", departments);
+
+        model.addAttribute("name", name);
+        model.addAttribute("faculty", faculty);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+
         return "department/index";
     }
 
@@ -32,9 +47,7 @@ public class DepartmentController {
 
     @PostMapping
     public String add(@Valid @ModelAttribute("department") Department department,
-                      BindingResult bindingResult,
-                      Model model) {
-
+                      BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "department/form";
@@ -71,8 +84,7 @@ public class DepartmentController {
     @PostMapping("/{id}/edit")
     public String update(@PathVariable String id,
                          @Valid @ModelAttribute("department") Department department,
-                         BindingResult bindingResult,
-                         Model model) {
+                         BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "department/edit";

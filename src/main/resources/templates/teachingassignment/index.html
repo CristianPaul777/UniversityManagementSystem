@@ -6,34 +6,58 @@
 </head>
 <body>
 
-<h1>All Teaching Assignments</h1>
+<h1>Teaching Assignments</h1>
 
-<a th:href="@{/teachingassignments/new}">Add New Assignment</a>
+<a href="/teachingassignments/new">Add New Assignment</a>
 
-<br><br>
+<hr>
 
-<table border="1" cellpadding="6" cellspacing="0">
+<form method="get" action="/teachingassignments">
+    <label>Teacher:</label>
+    <input type="text" name="teacher" th:value="${teacherFilter}">
+
+    <label>Course:</label>
+    <input type="text" name="course" th:value="${courseFilter}">
+
+    <label>Role:</label>
+    <input type="text" name="role" th:value="${roleFilter}">
+
+    <label>Sort by:</label>
+    <select name="sortField">
+        <option value="id">ID</option>
+        <option value="role">Role</option>
+    </select>
+
+    <select name="sortDir">
+        <option value="asc">ASC</option>
+        <option value="desc">DESC</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<hr>
+
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
-        <th>Teacher ID</th>
-        <th>Course ID</th>
+        <th>Teacher</th>
+        <th>Course</th>
         <th>Role</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="assignment : ${assignments}">
-        <td th:text="${assignment.id}"></td>
-        <td th:text="${assignment.teacher.id}"></td>
-        <td th:text="${assignment.course.id}"></td>
-        <td th:text="${assignment.role}"></td>
+    <tr th:each="a : ${assignments}">
+        <td th:text="${a.id}"></td>
+        <td th:text="${a.teacher.name}"></td>
+        <td th:text="${a.course.title}"></td>
+        <td th:text="${a.role}"></td>
         <td>
-            <a th:href="@{'/teachingassignments/' + ${assignment.id}}">Details</a>
-            &nbsp;|&nbsp;
-            <a th:href="@{'/teachingassignments/' + ${assignment.id} + '/edit'}">Edit</a>
-            &nbsp;|&nbsp;
-            <form th:action="@{'/teachingassignments/' + ${assignment.id} + '/delete'}" method="post" style="display:inline;">
+            <a th:href="@{'/teachingassignments/' + ${a.id}}">Details</a> |
+            <a th:href="@{'/teachingassignments/' + ${a.id} + '/edit'}">Edit</a> |
+            <form th:action="@{'/teachingassignments/' + ${a.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>
