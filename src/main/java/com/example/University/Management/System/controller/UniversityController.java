@@ -19,34 +19,35 @@ public class UniversityController {
     }
 
     @GetMapping
-    public String index(
-            @RequestParam(required = false) String name,
-            @RequestParam(defaultValue = "id") String sort,
-            @RequestParam(defaultValue = "asc") String dir,
-            Model model
-    ) {
+    public String index(@RequestParam(defaultValue = "") String name,
+                        @RequestParam(defaultValue = "name") String sortField,
+                        @RequestParam(defaultValue = "asc") String sortDir,
+                        Model model) {
+
         model.addAttribute("universities",
-                service.getFilteredAndSorted(name, sort, dir));
+                service.getFilteredAndSortedUniversities(name, sortField, sortDir));
 
         model.addAttribute("name", name);
-        model.addAttribute("sort", sort);
-        model.addAttribute("dir", dir);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSort", sortDir.equals("asc") ? "desc" : "asc");
 
         return "university/index";
     }
 
     @GetMapping("/new")
-    public String showForm(Model model) {
+    public String form(Model model) {
         model.addAttribute("university", new University());
         return "university/form";
     }
 
     @PostMapping
-    public String add(
-            @Valid @ModelAttribute("university") University university,
-            BindingResult result
-    ) {
+    public String add(@Valid @ModelAttribute University university,
+                      BindingResult result,
+                      Model model) {
+
         if (result.hasErrors()) {
+            model.addAttribute("university", university);
             return "university/form";
         }
 
@@ -67,12 +68,13 @@ public class UniversityController {
     }
 
     @PostMapping("/{id}/edit")
-    public String update(
-            @PathVariable String id,
-            @Valid @ModelAttribute("university") University university,
-            BindingResult result
-    ) {
+    public String update(@PathVariable String id,
+                         @Valid @ModelAttribute University university,
+                         BindingResult result,
+                         Model model) {
+
         if (result.hasErrors()) {
+            model.addAttribute("university", university);
             return "university/edit";
         }
 

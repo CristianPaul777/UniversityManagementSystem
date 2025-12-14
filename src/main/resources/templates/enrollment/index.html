@@ -10,33 +10,38 @@
 
 <a href="/enrollments/new">Add New Enrollment</a>
 
-<h3>Filter</h3>
+<hr>
 
-<form method="get" th:action="@{/enrollments}">
-    Student ID:
+<form method="get" action="/enrollments">
+
+    <label>Student ID:</label>
     <input type="text" name="studentId" th:value="${studentId}">
 
-    Course ID:
+    <label>Course ID:</label>
     <input type="text" name="courseId" th:value="${courseId}">
 
-    <button type="submit">Filter</button>
+    <label>Sort by:</label>
+    <select name="sortField" th:value="${sortField}">
+        <option value="id">ID</option>
+        <option value="grade">Grade</option>
+    </select>
+
+    <select name="sortDir" th:value="${sortDir}">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+
+    <button type="submit">Apply</button>
 </form>
 
-<h3>Sort</h3>
+<hr>
 
-<a th:href="@{/enrollments(sortField='id', sortDir=${reverseSort})}">
-    Sort by ID
-</a> |
-<a th:href="@{/enrollments(sortField='grade', sortDir=${reverseSort})}">
-    Sort by Grade
-</a>
-
-<table border="1" cellpadding="6" cellspacing="0">
+<table border="1">
     <thead>
     <tr>
         <th>ID</th>
-        <th>Student ID</th>
-        <th>Course ID</th>
+        <th>Student</th>
+        <th>Course</th>
         <th>Grade</th>
         <th>Actions</th>
     </tr>
@@ -53,8 +58,7 @@
             <a th:href="@{'/enrollments/' + ${en.id}}">Details</a> |
             <a th:href="@{'/enrollments/' + ${en.id} + '/edit'}">Edit</a> |
             <form th:action="@{'/enrollments/' + ${en.id} + '/delete'}"
-                  method="post"
-                  style="display:inline;">
+                  method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>

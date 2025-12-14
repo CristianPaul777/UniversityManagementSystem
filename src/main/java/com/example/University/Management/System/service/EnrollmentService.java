@@ -16,39 +16,37 @@ public class EnrollmentService {
         this.repo = repo;
     }
 
-    public List<Enrollment> getAllEnrollments() {
-        return repo.findAll();
-    }
+    public List<Enrollment> getFilteredAndSortedEnrollments(
+            String studentId,
+            String courseId,
+            String sortField,
+            String sortDir
+    ) {
 
-    public List<Enrollment> getSortedEnrollments(String field, String direction) {
-        Sort sort = direction.equalsIgnoreCase("asc")
-                ? Sort.by(field).ascending()
-                : Sort.by(field).descending();
+        Sort sort = sortDir.equals("desc")
+                ? Sort.by(sortField).descending()
+                : Sort.by(sortField).ascending();
+
+        if (!studentId.isEmpty() && !courseId.isEmpty()) {
+            return repo
+                    .findByStudent_IdContainingIgnoreCaseAndCourse_IdContainingIgnoreCase(studentId, courseId)
+                    .stream().toList();
+        }
+
+        if (!studentId.isEmpty()) {
+            return repo
+                    .findByStudent_IdContainingIgnoreCase(studentId)
+                    .stream().toList();
+        }
+
+        if (!courseId.isEmpty()) {
+            return repo
+                    .findByCourse_IdContainingIgnoreCase(courseId)
+                    .stream().toList();
+        }
 
         return repo.findAll(sort);
     }
-
-    public List<Enrollment> filterAndSort(String studentId,
-                                          String courseId,
-                                          String field,
-                                          String direction) {
-
-        Sort sort = Sort.by(field).ascending();
-        if (direction.equalsIgnoreCase("desc")) {
-            sort = sort.descending();
-        }
-
-        if (studentId != null && !studentId.isEmpty()) {
-            return repo.findByStudentId(studentId, sort);
-        }
-
-        if (courseId != null && !courseId.isEmpty()) {
-            return repo.findByCourseId(courseId, sort);
-        }
-
-        return repo.findAll(sort);
-    }
-
 
     public Enrollment getEnrollmentById(String id) {
         return repo.findById(id).orElse(null);
@@ -59,13 +57,10 @@ public class EnrollmentService {
     }
 
     public Enrollment updateEnrollment(String id, Enrollment updatedEnrollment) {
-        Enrollment existing = repo.findById(id).orElse(null);
-
-        if (existing != null) {
+        if (repo.existsById(id)) {
             updatedEnrollment.setId(id);
             return repo.save(updatedEnrollment);
         }
-
         return null;
     }
 

@@ -1,7 +1,6 @@
 package com.example.University.Management.System.repository;
 
 import com.example.University.Management.System.model.Enrollment;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +9,11 @@ import java.util.List;
 @Repository
 public interface EnrollmentRepository extends JpaRepository<Enrollment, String> {
 
-    List<Enrollment> findByStudentId(String studentId, Sort sort);
+    List<Enrollment> findByStudent_IdContainingIgnoreCase(String studentId);
 
-    List<Enrollment> findByCourseId(String courseId, Sort sort);
+    List<Enrollment> findByCourse_IdContainingIgnoreCase(String courseId);
+
+    List<Enrollment> findByStudent_IdContainingIgnoreCaseAndCourse_IdContainingIgnoreCase(
+            String studentId, String courseId
+    );
 }

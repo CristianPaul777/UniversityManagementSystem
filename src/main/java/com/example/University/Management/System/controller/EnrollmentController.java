@@ -19,42 +19,37 @@ public class EnrollmentController {
     }
 
     @GetMapping
-    public String index(
-            @RequestParam(required = false) String studentId,
-            @RequestParam(required = false) String courseId,
-            @RequestParam(defaultValue = "id") String sort,
-            @RequestParam(defaultValue = "asc") String dir,
-            Model model
-    ) {
+    public String index(@RequestParam(defaultValue = "") String studentId,
+                        @RequestParam(defaultValue = "") String courseId,
+                        @RequestParam(defaultValue = "id") String sortField,
+                        @RequestParam(defaultValue = "asc") String sortDir,
+                        Model model) {
 
         model.addAttribute("enrollments",
-                service.filterAndSort(studentId, courseId, sort, dir));
+                service.getFilteredAndSortedEnrollments(studentId, courseId, sortField, sortDir));
 
         model.addAttribute("studentId", studentId);
         model.addAttribute("courseId", courseId);
-        model.addAttribute("sort", sort);
-        model.addAttribute("dir", dir);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSort", sortDir.equals("asc") ? "desc" : "asc");
 
         return "enrollment/index";
     }
 
     @GetMapping("/new")
-    public String createForm(Model model) {
+    public String form(Model model) {
         model.addAttribute("enrollment", new Enrollment());
         return "enrollment/form";
     }
 
     @PostMapping
-    public String add(@Valid @ModelAttribute("enrollment") Enrollment enrollment,
-                      BindingResult bindingResult,
+    public String add(@Valid @ModelAttribute Enrollment enrollment,
+                      BindingResult result,
                       Model model) {
 
-        if (bindingResult.hasErrors()) {
-            return "enrollment/form";
-        }
-
-        if (enrollment.getStudent() == null || enrollment.getCourse() == null) {
-            model.addAttribute("error", "Student or course does not exist!");
+        if (result.hasErrors()) {
+            model.addAttribute("enrollment", enrollment);
             return "enrollment/form";
         }
 
@@ -64,40 +59,24 @@ public class EnrollmentController {
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        Enrollment enrollment = service.getEnrollmentById(id);
-
-        if (enrollment == null) {
-            return "redirect:/enrollments";
-        }
-
-        model.addAttribute("enrollment", enrollment);
+        model.addAttribute("enrollment", service.getEnrollmentById(id));
         return "enrollment/details";
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable String id, Model model) {
-        Enrollment enrollment = service.getEnrollmentById(id);
-
-        if (enrollment == null) {
-            return "redirect:/enrollments";
-        }
-
-        model.addAttribute("enrollment", enrollment);
+    public String edit(@PathVariable String id, Model model) {
+        model.addAttribute("enrollment", service.getEnrollmentById(id));
         return "enrollment/edit";
     }
 
     @PostMapping("/{id}/edit")
     public String update(@PathVariable String id,
-                         @Valid @ModelAttribute("enrollment") Enrollment enrollment,
-                         BindingResult bindingResult,
+                         @Valid @ModelAttribute Enrollment enrollment,
+                         BindingResult result,
                          Model model) {
 
-        if (bindingResult.hasErrors()) {
-            return "enrollment/edit";
-        }
-
-        if (enrollment.getStudent() == null || enrollment.getCourse() == null) {
-            model.addAttribute("error", "Student or course does not exist!");
+        if (result.hasErrors()) {
+            model.addAttribute("enrollment", enrollment);
             return "enrollment/edit";
         }
 

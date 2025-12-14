@@ -16,39 +16,29 @@ public class UniversityService {
         this.repo = repo;
     }
 
-    public List<University> getAllUniversities() {
-        return repo.findAll();
-    }
+    public List<University> getFilteredAndSortedUniversities(
+            String name,
+            String sortField,
+            String sortDir) {
 
-    public List<University> getSortedUniversities(String field, String direction) {
-        Sort sort = direction.equalsIgnoreCase("asc")
-                ? Sort.by(field).ascending()
-                : Sort.by(field).descending();
+        Sort sort = sortDir.equals("desc")
+                ? Sort.by(sortField).descending()
+                : Sort.by(sortField).ascending();
+
+        if (!name.isEmpty()) {
+            // exact ca la Teacher
+            return repo.findByNameContainingIgnoreCase(name)
+                    .stream().sorted((a, b) -> 0).toList();
+        }
 
         return repo.findAll(sort);
     }
 
-
-    public List<University> getFilteredAndSorted(String name, String field, String direction) {
-
-        List<University> result;
-
-        if (name != null && !name.isEmpty()) {
-            result = repo.findByNameContainingIgnoreCase(name);
-        } else {
-            result = repo.findAll();
-        }
-
-        if (field != null && !field.isEmpty()) {
-            Sort sort = direction.equalsIgnoreCase("asc")
-                    ? Sort.by(field).ascending()
-                    : Sort.by(field).descending();
-
-            result = repo.findAll(sort);
-        }
-
-        return result;
+    // CRUD
+    public List<University> getAllUniversities() {
+        return repo.findAll();
     }
+
     public University getUniversityById(String id) {
         return repo.findById(id).orElse(null);
     }
