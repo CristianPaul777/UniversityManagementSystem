@@ -17,27 +17,44 @@ public class AssistantService {
         this.repo = repo;
     }
 
-    public List<Assistant> getFilteredAndSorted(String name,
-                                                AssistantRole role,
-                                                String sortField,
-                                                String direction) {
+    public List<Assistant> getAllAssistants() {
+        return repo.findAll();
+    }
 
-        Sort sort = direction.equalsIgnoreCase("desc")
+    public List<Assistant> getFilteredAndSortedAssistants(String name,
+                                                          String role,
+                                                          String sortField,
+                                                          String sortDir) {
+
+        Sort sort = sortDir.equals("desc")
                 ? Sort.by(sortField).descending()
                 : Sort.by(sortField).ascending();
 
-        if (name != null && !name.isEmpty() && role != null) {
-            return repo.findByNameContainingIgnoreCaseAndRole(name, role, sort);
+        // role vine din request ca String (ex: "LAB"), îl transformăm în enum dacă nu e gol
+        AssistantRole roleEnum = null;
+        if (role != null && !role.isBlank()) {
+            roleEnum = AssistantRole.valueOf(role);
         }
-        else if (name != null && !name.isEmpty()) {
-            return repo.findByNameContainingIgnoreCase(name, sort);
+
+        boolean hasName = name != null && !name.isBlank();
+        boolean hasRole = roleEnum != null;
+
+        if (hasName && hasRole) {
+            return repo.findByNameContainingIgnoreCaseAndRole(name, roleEnum)
+                    .stream().sorted((a, b) -> 0).toList();
         }
-        else if (role != null) {
-            return repo.findByRole(role, sort);
+
+        if (hasName) {
+            return repo.findByNameContainingIgnoreCase(name)
+                    .stream().sorted((a, b) -> 0).toList();
         }
-        else {
-            return repo.findAll(sort);
+
+        if (hasRole) {
+            return repo.findByRole(roleEnum)
+                    .stream().sorted((a, b) -> 0).toList();
         }
+
+        return repo.findAll(sort);
     }
 
     public Assistant getAssistantById(String id) {

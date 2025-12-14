@@ -10,18 +10,32 @@
 
 <a href="/students/new">Add New Student</a>
 
-<h3>Filter</h3>
+<hr>
 
-<form method="get" th:action="@{/students}">
-    Name: <input type="text" name="name" th:value="${name}">
-    Email: <input type="text" name="email" th:value="${email}">
+<form method="get" action="/students">
 
-    <button type="submit">Filter</button>
+    <label>Name:</label>
+    <input type="text" name="name" th:value="${name}">
+
+    <label>Email:</label>
+    <input type="text" name="email" th:value="${email}">
+
+    <label>Sort by:</label>
+    <select name="sortField" th:value="${sortField}">
+        <option value="id">ID</option>
+        <option value="name">Name</option>
+        <option value="email">Email</option>
+    </select>
+
+    <select name="sortDir" th:value="${sortDir}">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+
+    <button type="submit">Apply</button>
 </form>
 
-<h3>Sort</h3>
-<a th:href="@{/students(sortField='name', sortDir=${reverseSort})}">Sort by Name</a> |
-<a th:href="@{/students(sortField='email', sortDir=${reverseSort})}">Sort by Email</a>
+<hr>
 
 <table border="1">
     <thead>
@@ -42,7 +56,8 @@
         <td>
             <a th:href="@{'/students/' + ${student.id}}">Details</a> |
             <a th:href="@{'/students/' + ${student.id} + '/edit'}">Edit</a> |
-            <form th:action="@{'/students/' + ${student.id} + '/delete'}" method="post" style="display:inline;">
+            <form th:action="@{'/students/' + ${student.id} + '/delete'}"
+                  method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>

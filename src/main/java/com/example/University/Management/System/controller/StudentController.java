@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/students")
 public class StudentController {
@@ -21,42 +19,37 @@ public class StudentController {
     }
 
     @GetMapping
-    public String index(@RequestParam(required = false) String name,
-                        @RequestParam(required = false) String email,
-                        @RequestParam(defaultValue = "name") String sortField,
-                        @RequestParam(defaultValue = "asc") String direction,
+    public String index(@RequestParam(defaultValue = "") String name,
+                        @RequestParam(defaultValue = "") String email,
+                        @RequestParam(defaultValue = "id") String sortField,
+                        @RequestParam(defaultValue = "asc") String sortDir,
                         Model model) {
 
-        List<Student> students = service.getFilteredAndSorted(
-                name, email, sortField, direction
-        );
+        model.addAttribute("students",
+                service.getFilteredAndSortedStudents(name, email, sortField, sortDir));
 
-        model.addAttribute("students", students);
         model.addAttribute("name", name);
         model.addAttribute("email", email);
         model.addAttribute("sortField", sortField);
-        model.addAttribute("direction", direction);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSort", sortDir.equals("asc") ? "desc" : "asc");
 
         return "student/index";
     }
 
     @GetMapping("/new")
-    public String showForm(Model model) {
+    public String form(Model model) {
         model.addAttribute("student", new Student());
         return "student/form";
     }
 
     @PostMapping
-    public String add(@Valid @ModelAttribute("student") Student student,
-                      BindingResult bindingResult,
+    public String add(@Valid @ModelAttribute Student student,
+                      BindingResult result,
                       Model model) {
 
-        if (bindingResult.hasErrors()) {
-            return "student/form";
-        }
-
-        if (service.emailExists(student.getEmail())) {
-            model.addAttribute("error", "A student with this email already exists.");
+        if (result.hasErrors()) {
+            model.addAttribute("student", student);
             return "student/form";
         }
 
@@ -66,40 +59,24 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public String details(@PathVariable String id, Model model) {
-        Student student = service.getStudentById(id);
-
-        if (student == null) {
-            return "redirect:/students";
-        }
-
-        model.addAttribute("student", student);
+        model.addAttribute("student", service.getStudentById(id));
         return "student/details";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable String id, Model model) {
-        Student student = service.getStudentById(id);
-
-        if (student == null) {
-            return "redirect:/students";
-        }
-
-        model.addAttribute("student", student);
+        model.addAttribute("student", service.getStudentById(id));
         return "student/edit";
     }
 
     @PostMapping("/{id}/edit")
     public String update(@PathVariable String id,
-                         @Valid @ModelAttribute("student") Student student,
-                         BindingResult bindingResult,
+                         @Valid @ModelAttribute Student student,
+                         BindingResult result,
                          Model model) {
 
-        if (bindingResult.hasErrors()) {
-            return "student/edit";
-        }
-
-        if (service.emailBelongsToAnotherStudent(student.getEmail(), id)) {
-            model.addAttribute("error", "Another student already uses this email.");
+        if (result.hasErrors()) {
+            model.addAttribute("student", student);
             return "student/edit";
         }
 

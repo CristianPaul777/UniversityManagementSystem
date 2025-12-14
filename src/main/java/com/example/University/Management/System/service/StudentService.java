@@ -6,7 +6,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -21,40 +20,33 @@ public class StudentService {
         return repo.findAll();
     }
 
-    public List<Student> getSortedStudents(String field, String direction) {
-        Sort sort = direction.equalsIgnoreCase("asc")
-                ? Sort.by(field).ascending()
-                : Sort.by(field).descending();
+    public List<Student> getFilteredAndSortedStudents(
+            String name,
+            String email,
+            String sortField,
+            String sortDir
+    ) {
+
+        Sort sort = sortDir.equals("desc")
+                ? Sort.by(sortField).descending()
+                : Sort.by(sortField).ascending();
+
+        if (!name.isEmpty() && !email.isEmpty()) {
+            return repo.findByNameContainingIgnoreCaseAndEmailContainingIgnoreCase(name, email)
+                    .stream().sorted((a, b) -> 0).toList();
+        }
+
+        if (!name.isEmpty()) {
+            return repo.findByNameContainingIgnoreCase(name)
+                    .stream().sorted((a, b) -> 0).toList();
+        }
+
+        if (!email.isEmpty()) {
+            return repo.findByEmailContainingIgnoreCase(email)
+                    .stream().sorted((a, b) -> 0).toList();
+        }
 
         return repo.findAll(sort);
-    }
-
-    public List<Student> getFilteredAndSorted(String name,
-                                              String email,
-                                              String field,
-                                              String direction) {
-
-        List<Student> result;
-
-        if (name != null && !name.isEmpty() && email != null && !email.isEmpty()) {
-            result = repo.findByNameContainingIgnoreCaseAndEmailContainingIgnoreCase(name, email);
-        } else if (name != null && !name.isEmpty()) {
-            result = repo.findByNameContainingIgnoreCase(name);
-        } else if (email != null && !email.isEmpty()) {
-            result = repo.findByEmailContainingIgnoreCase(email);
-        } else {
-            result = getAllStudents();
-        }
-
-        if (field != null && !field.isEmpty()) {
-            Sort sort = direction.equalsIgnoreCase("asc")
-                    ? Sort.by(field).ascending()
-                    : Sort.by(field).descending();
-
-            result = repo.findAll(sort);
-        }
-
-        return result;
     }
 
     public Student getStudentById(String id) {
@@ -66,24 +58,11 @@ public class StudentService {
     }
 
     public Student updateStudent(String id, Student updatedStudent) {
-        Optional<Student> existing = repo.findById(id);
-
-        if (existing.isPresent()) {
+        if (repo.existsById(id)) {
             updatedStudent.setId(id);
             return repo.save(updatedStudent);
         }
-
         return null;
-    }
-
-    public boolean emailExists(String email) {
-        return repo.findByEmail(email).isPresent();
-    }
-
-    public boolean emailBelongsToAnotherStudent(String email, String id) {
-        return repo.findByEmail(email)
-                .filter(s -> !s.getId().equals(id))
-                .isPresent();
     }
 
     public void deleteStudent(String id) {
