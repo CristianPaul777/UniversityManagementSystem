@@ -26,7 +26,7 @@ public class UniversityService {
                 : Sort.by(sortField).ascending();
 
         if (!name.isEmpty()) {
-            // exact ca la Teacher
+
             return repo.findByNameContainingIgnoreCase(name)
                     .stream().sorted((a, b) -> 0).toList();
         }
@@ -34,7 +34,7 @@ public class UniversityService {
         return repo.findAll(sort);
     }
 
-    // CRUD
+
     public List<University> getAllUniversities() {
         return repo.findAll();
     }

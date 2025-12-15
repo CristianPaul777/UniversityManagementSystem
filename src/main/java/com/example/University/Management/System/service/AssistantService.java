@@ -30,7 +30,7 @@ public class AssistantService {
                 ? Sort.by(sortField).descending()
                 : Sort.by(sortField).ascending();
 
-        // role vine din request ca String (ex: "LAB"), îl transformăm în enum dacă nu e gol
+
         AssistantRole roleEnum = null;
         if (role != null && !role.isBlank()) {
             roleEnum = AssistantRole.valueOf(role);
