@@ -39,7 +39,7 @@ public class RoomService {
             Comparator<Room> comparator = switch (sort) {
                 case "number" -> Comparator.comparing(Room::getNumber);
                 case "building" -> Comparator.comparing(Room::getBuilding);
-                case "capacity" -> Comparator.comparingDouble(Room::getCapacity); // aici era eroarea!
+                case "capacity" -> Comparator.comparingDouble(Room::getCapacity);
                 default -> null;
             };
 
